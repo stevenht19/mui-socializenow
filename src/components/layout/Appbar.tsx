@@ -1,5 +1,3 @@
-import { grey } from '@mui/material/colors';
-import { Search, Add, AccountCircle } from '@mui/icons-material';
 import {
   AppBar,
   Toolbar,
@@ -10,15 +8,18 @@ import {
   IconButton,
   Button,
   Stack,
-} from '@mui/material';
+} from '@mui/material'
+import { grey } from '@mui/material/colors';
+import { Search, Add, AccountCircle } from '@mui/icons-material'
+import { Flex } from '@/components/atoms/Flex'
 
 const SearchBar = () => {
   return (
     <Box
-      bgcolor={grey[100]}
+      bgcolor={grey[200]}
       pl={2.5}
       pr={1}
-      py={.4}
+      py={.1}
       borderRadius={6}
       flex={.45}
       sx={{
@@ -61,8 +62,10 @@ const Header = () => {
           justifyContent: 'space-between',
           alignItems: 'center'
         }}>
-          App Logo
-          <SearchBar />
+          <Flex flex={1} gap={3}>
+            App Logo
+            <SearchBar />
+          </Flex>
           <Stack direction='row' spacing={2}>
             <Button variant='outlined' startIcon={<Add />}>
               Post
