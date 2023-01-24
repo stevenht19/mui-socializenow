@@ -1,22 +1,23 @@
 import {
   Box,
-  Divider, 
-  List, 
-  ListItem, 
-  ListItemButton, 
-  ListItemIcon, 
-  ListItemText, 
+  CircularProgress,
+  Divider,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemIcon,
+  ListItemText,
 } from '@mui/material'
 import { Home, People } from '@mui/icons-material'
+import { useFakeAccounts } from './hooks'
 import { Accounts } from './Accounts'
-import { useFakeAccounts } from './hooks/useFakeAccounts'
 
 const Sidebar = () => {
   return (
-    <Box 
+    <Box
       top={70}
       flex={.35}
-      position='sticky' 
+      position='sticky'
       height='100%'
     >
       <List>
@@ -40,8 +41,8 @@ const Sidebar = () => {
       <Divider />
       {
         false && (
-          <Accounts 
-            subheader='Following Accounts' 
+          <Accounts
+            subheader='Following Accounts'
           />
         )
       }
@@ -53,12 +54,24 @@ const Sidebar = () => {
 const SuggestedAccounts = () => {
   const [accounts] = useFakeAccounts()
 
-  return (
-    <Accounts
-      subheader='Suggested Accounts'
-      accounts={accounts}
-    />
-  )
+  return <>
+    {
+      accounts.length ? (
+        <Accounts
+          subheader='Suggested Accounts'
+          accounts={accounts}
+        />
+      ) : (
+        <Box 
+          display='flex' 
+          justifyContent='center' 
+          pt={3}
+        >
+        <CircularProgress />
+        </Box> 
+      )
+    }
+  </>
 }
 
 export default Sidebar

@@ -12,7 +12,7 @@ export const Accounts: React.FC<Props> = ({
 }) => {
   return <>
     {
-      accounts ? (
+      accounts?.length ? (
         <List subheader={
           <ListSubheader disableGutters>
             {subheader}
@@ -20,7 +20,10 @@ export const Accounts: React.FC<Props> = ({
         }>
           {
             accounts.map((props) => (
-              <AccountItem {...props} />
+              <AccountItem 
+                key={props.login.uuid} 
+                {...props} 
+              />
             ))
           }
         </List>

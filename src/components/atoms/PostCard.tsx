@@ -1,5 +1,21 @@
-import { Favorite, QuestionAnswer, Share } from '@mui/icons-material'
-import { Avatar, Card, CardActions, CardContent, CardHeader, CardMedia, IconButton, Typography } from '@mui/material'
+import { useAccount } from '@/hooks'
+import { 
+  ChatBubbleOutline,
+  FavoriteBorder, 
+  FavoriteOutlined,
+  Share 
+} from '@mui/icons-material'
+import {
+  Avatar,
+  Card,
+  CardActions,
+  CardContent,
+  CardHeader,
+  CardMedia,
+  Checkbox,
+  IconButton,
+  Typography
+} from '@mui/material'
 import { red } from '@mui/material/colors'
 import { Flex } from './Flex'
 
@@ -31,30 +47,51 @@ const PostCard = () => {
           This is a post
         </Typography>
       </CardContent>
-      <CardActions>
-        <Flex>
-          <IconButton>
-            <Favorite />
-          </IconButton>
-          <Typography component='span' variant='body2'>
-            140
-          </Typography>
-        </Flex>
-        <Flex>
-          <IconButton>
-            <QuestionAnswer />
-          </IconButton>
-          <Typography component='span'  variant='body2'>
-            30
-          </Typography>
-        </Flex>
-        <IconButton sx={{
-          ml: 'auto'
-        }}>
-          <Share />
-        </IconButton>
-      </CardActions>
+      <PostCardActions />
     </Card>
+  )
+}
+
+const PostCardActions = () => {
+  const { user, verifyIfUserExists } = useAccount()
+
+  const handleLike = () => {
+    verifyIfUserExists(() => console.log('like'))
+  }
+
+  return (
+    <CardActions>
+      <Flex>
+        {
+          user ? (
+            <Checkbox
+              icon={<FavoriteBorder />}
+              checkedIcon={<FavoriteOutlined />}
+            />
+          ) : (
+            <IconButton onClick={handleLike}>
+              <FavoriteBorder />
+            </IconButton>
+          )
+        }
+        <Typography component='span' variant='body2'>
+          140
+        </Typography>
+      </Flex>
+      <Flex>
+        <IconButton>
+          <ChatBubbleOutline />
+        </IconButton>
+        <Typography component='span' variant='body2'>
+          30
+        </Typography>
+      </Flex>
+      <IconButton sx={{
+        ml: 'auto'
+      }}>
+        <Share />
+      </IconButton>
+    </CardActions>
   )
 }
 

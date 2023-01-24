@@ -1,11 +1,10 @@
 import { Box, Container } from '@mui/material'
-import ListView from '@/components/atoms/ListView'
-import PostCard from '@/components/atoms/PostCard'
-import PostInput from '@/components/atoms/PostInput'
+import { Sidebar } from '@/components/layout/Sidebar'
 import Appbar from './Appbar'
-import Sidebar from './Sidebar/Sidebar'
 
-export default function AppLayout() {
+export default function AppLayout({ children }: {
+  children: React.ReactNode
+}) {
   return <>
     <Appbar />
     <Container
@@ -20,15 +19,7 @@ export default function AppLayout() {
         flex={1}
         pt={3}
       >
-        <PostInput />
-        <ListView>
-          <PostCard />
-          <PostCard />
-          <PostCard />
-          <PostCard />
-          <PostCard />
-          <PostCard />
-        </ListView>
+        {children}
       </Box>
     </Container>
   </>

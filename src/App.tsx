@@ -1,20 +1,15 @@
 import AppLayout from '@/components/layout'
-import { useEffect } from 'react'
+import { AccountProvider } from '@/context'
+import { Home } from '@/pages/Home'
 
 function App() {
-  /*
-  useEffect(() => {
-    fetch('https://dummyapi.io/data/v1/user?limit=10', {
-      headers: {
-        'app-id': '63ce07e6788d90dfa295945c'
-      }
-    })
-      .then((res) => res.json())
-      .then((res) => console.log(res))
-  }, [])*/
-  return <>
-    <AppLayout />
-  </>
+  return (
+    <AccountProvider>
+      <AppLayout>
+        <Home />
+      </AppLayout>
+    </AccountProvider>
+  )
 }
 
 export default App

@@ -1,6 +1,7 @@
 interface FakeAccount {
   email: string
   login: {
+    uuid: string
     username: string
   }
   name: {
