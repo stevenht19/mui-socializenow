@@ -4,11 +4,11 @@ import PostCard from '@/components/atoms/PostCard'
 export const Posts = () => {
   return (
     <ListView>
-      <PostCard />
-      <PostCard />
-      <PostCard />
-      <PostCard />
-      <PostCard />
+      {
+        [1, 2, 3, 4, 5].map((v) => (
+          <PostCard key={v} />
+        ))
+      }
     </ListView>
   )
 }

@@ -11,8 +11,12 @@ export const Form: React.FC<Props> = ({
   textButton, 
   inputs
 }) => {
+  const onSubmit = () => {
+    //window.location.reload()
+  }
+
   return (
-    <Box component='form' p={3.5}>
+    <Box component='form' p={3.5} onSubmit={onSubmit}>
       <Typography mb={1.5} color='text.secondary'>
         {subtitle}
       </Typography>
@@ -29,6 +33,7 @@ export const Form: React.FC<Props> = ({
         ))
       }
       <Button
+        type='submit'
         variant='contained'
         fullWidth
         size='large'

@@ -1,4 +1,11 @@
-import { Avatar, List, ListItem, ListItemAvatar, ListItemText, ListSubheader } from '@mui/material'
+import { 
+  Avatar, 
+  List, 
+  ListItem, 
+  ListItemAvatar, 
+  ListItemText, 
+  ListSubheader 
+} from '@mui/material'
 import FakeAccount from '@/models/FakeAccount'
 
 type Props = {

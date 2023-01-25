@@ -1,9 +1,9 @@
-import { useAccount } from '@/hooks'
-import { 
+import { useAuthModal, useBoolean } from '@/hooks'
+import {
   ChatBubbleOutline,
-  FavoriteBorder, 
+  FavoriteBorder,
   FavoriteOutlined,
-  Share 
+  Share
 } from '@mui/icons-material'
 import {
   Avatar,
@@ -14,10 +14,12 @@ import {
   CardMedia,
   Checkbox,
   IconButton,
+  Snackbar,
   Typography
 } from '@mui/material'
 import { red } from '@mui/material/colors'
 import { Flex } from './Flex'
+import { Modal } from '../layout/Auth'
 
 const PostCard = () => {
   return (
@@ -47,19 +49,42 @@ const PostCard = () => {
           This is a post
         </Typography>
       </CardContent>
-      <PostCardActions />
+      <Actions />
     </Card>
   )
 }
 
-const PostCardActions = () => {
-  const { user, verifyIfUserExists } = useAccount()
+const Actions = () => {
 
-  const handleLike = () => {
-    verifyIfUserExists(() => console.log('like'))
+  const { boolean: isOpen, setTrue: onOpenSnackbar, setFalse: onCloseSnackbar } = useBoolean()
+  const { user, open, onClose, verifyIfUserExists } = useAuthModal()
+
+  const handleShare = () => {
+    onOpenSnackbar()
   }
 
-  return (
+  const handleLike = () => {
+    console.log('fetch')
+  }
+
+  const onClick = () => {
+    verifyIfUserExists(handleLike)
+  }
+
+  return <>
+    <Modal
+      open={open}
+      onClose={onClose}
+      customMessage='You will need an account to like posts'
+    />
+    <Snackbar
+      anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+      open={isOpen}
+      onClose={onCloseSnackbar}
+      autoHideDuration={1900}
+      message='Link copied to clipboard'
+      key={'bottom center'}
+    />
     <CardActions>
       <Flex>
         {
@@ -69,7 +94,7 @@ const PostCardActions = () => {
               checkedIcon={<FavoriteOutlined />}
             />
           ) : (
-            <IconButton onClick={handleLike}>
+            <IconButton onClick={onClick}>
               <FavoriteBorder />
             </IconButton>
           )
@@ -86,13 +111,16 @@ const PostCardActions = () => {
           30
         </Typography>
       </Flex>
-      <IconButton sx={{
-        ml: 'auto'
-      }}>
+      <IconButton
+        onClick={handleShare} 
+        sx={{
+          ml: 'auto'
+        }}
+      >
         <Share />
       </IconButton>
     </CardActions>
-  )
+  </>
 }
 
 export default PostCard

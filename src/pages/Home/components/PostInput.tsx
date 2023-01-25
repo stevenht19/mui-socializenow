@@ -1,17 +1,28 @@
-import { useAccount } from '@/hooks'
+import { useBoolean, useAuthModal } from '@/hooks'
 import { EmojiEmotions, Photo, Place } from '@mui/icons-material'
 import { Avatar, Box, Button, Divider, InputBase, Paper } from '@mui/material'
 import { Flex } from '@/components/atoms/Flex'
 import { grey } from '@mui/material/colors'
+import { PostModal } from '@/components/layout/Posts'
+import { Modal } from '@/components/layout/Auth'
 
-export const PostInput = () => {
-  const { verifyIfUserExists } = useAccount()
+const message = `You need an account for posting at first`
+
+const PostBox = ({ openPostModal }: {
+  openPostModal: () => void
+}) => {
+  const { open, onClose, verifyIfUserExists } = useAuthModal()
 
   const onClick = () => {
-    verifyIfUserExists(() => console.log('action'))
+    verifyIfUserExists(openPostModal)
   }
 
-  return (
+  return <>
+    <Modal 
+      open={open} 
+      onClose={onClose}
+      customMessage={message} 
+    />
     <Paper sx={{
       p: 1.5,
       gap: 1.2,
@@ -70,5 +81,17 @@ export const PostInput = () => {
         </Button>
       </Flex>
     </Paper>
-  )
+  </>
+}
+
+export const PostInput = () => {
+  const { boolean, setTrue, setFalse } = useBoolean()
+
+  return <>
+    <PostModal
+      open={boolean}
+      onClose={setFalse}
+    />
+    <PostBox openPostModal={setTrue} />
+  </>
 }

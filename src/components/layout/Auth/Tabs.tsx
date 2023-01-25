@@ -1,4 +1,4 @@
-import { Tab, Tabs } from '@mui/material'
+import { Tabs } from '@mui/material'
 import { Form } from './Form'
 import { useTabs } from './hooks'
 
@@ -30,24 +30,26 @@ const TabPanel = ({
   )
 }
 
-export const ModalTabs = () => {
-  const { value, onChange } = useTabs()
+export const ModalTabs = ({ customMessage, children }: {
+  customMessage?: string
+  children: React.ReactNode
+}) => {
+  const { value, onChange } = useTabs(Boolean(customMessage))
 
   return <>
     <Tabs value={value} onChange={onChange} variant='fullWidth'>
-      <Tab label='Login' />
-      <Tab label='Register' />
+      {children}
     </Tabs>
     <TabPanel value={value} index={0}>
       <Form
-        subtitle='Welcome again!'
+        subtitle={'Welcome again!'}
         textButton='Login'
         inputs={loginInputs}
       />
     </TabPanel>
     <TabPanel value={value} index={1}>
       <Form
-        subtitle='Create an account for free!'
+        subtitle={customMessage || 'Create an account for free!'}
         textButton='Sign up'
         inputs={signUpInputs}
       />

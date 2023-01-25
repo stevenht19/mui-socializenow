@@ -6,18 +6,29 @@ import {
   Stack,
 } from '@mui/material'
 import { Add, AccountCircle } from '@mui/icons-material'
-import { useAccount } from '@/hooks';
+import { useBoolean, useAuthModal } from '@/hooks'
+import { PostModal } from './Posts'
+import { Modal } from './Auth'
 
 const Buttons = () => {
-  const { verifyIfUserExists, onOpen } = useAccount()
+  const { boolean, setTrue, setFalse } = useBoolean()
+  const { open, onOpen, onClose, verifyIfUserExists } = useAuthModal()
 
   const handleUploadPost = () => {
-    verifyIfUserExists(() => console.log('hello'))
+    verifyIfUserExists(setTrue)
   }
 
-  return (
-    <Stack 
-      direction='row' 
+  return <>
+    <Modal 
+      open={open} 
+      onClose={onClose} 
+    />
+    <PostModal
+      open={boolean}
+      onClose={setFalse}
+    />
+    <Stack
+      direction='row'
       spacing={2}
     >
       <Button
@@ -27,15 +38,15 @@ const Buttons = () => {
       >
         Post
       </Button>
-      <Button 
-        variant='contained' 
+      <Button
+        variant='contained'
         startIcon={<AccountCircle />}
         onClick={onOpen}
       >
         Login
       </Button>
     </Stack>
-  )
+  </>
 }
 
 const Header = () => {
@@ -43,6 +54,7 @@ const Header = () => {
     <AppBar
       position='sticky'
       color='inherit'
+      elevation={0}
       variant='outlined'
     >
       <Toolbar>

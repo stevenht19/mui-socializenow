@@ -1,5 +1,5 @@
-import FakeAccount, { FakeAccountResponse } from '@/models/FakeAccount'
 import { useEffect, useState } from 'react'
+import FakeAccount, { FakeAccountResponse } from '@/models/FakeAccount'
 
 const API = 'https://randomuser.me/api/?results=5'
 
@@ -10,7 +10,6 @@ const useFakeAccounts = () => {
     fetch(API)
       .then((res) => res.json())
       .then((data: FakeAccountResponse) => { 
-        console.log(data.results)
         setFakeAccounts(data.results) 
       })
   }, [])
