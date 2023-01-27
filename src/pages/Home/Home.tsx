@@ -1,9 +1,14 @@
-import { PostInput } from './components/PostInput';
-import { Posts } from './components/Posts';
+import { Posts } from './components/Posts'
+import { UserPosts } from './components/UserPosts'
 
 export default function Home() {
   return <>
-    <PostInput />
+    {
+      /*
+        <PostInput /> 
+      */
+    }
+    <UserPosts />
     <Posts />
   </>
 }

@@ -1,10 +1,11 @@
 import { useBoolean, useAuthModal } from '@/hooks'
 import { EmojiEmotions, Photo, Place } from '@mui/icons-material'
-import { Avatar, Box, Button, Divider, InputBase, Paper } from '@mui/material'
-import { Flex } from '@/components/atoms/Flex'
+import { Box, Button, Divider, InputBase, Paper } from '@mui/material'
 import { grey } from '@mui/material/colors'
+import { Flex } from '@/components/atoms/Flex'
 import { PostModal } from '@/components/layout/Posts'
 import { Modal } from '@/components/layout/Auth'
+import { UserAvatar } from '@/components/atoms/UserAvatar'
 
 const message = `You need an account for posting at first`
 
@@ -34,7 +35,7 @@ const PostBox = ({ openPostModal }: {
         gap={1.2}
         mb={1.8}
       >
-        <Avatar />
+        <UserAvatar />
         <InputBase
           placeholder={`What's on your mind?`}
           fullWidth

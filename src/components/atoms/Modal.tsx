@@ -12,7 +12,7 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  paddingBottom: '1.5rem',
+  paddingBottom: '.5rem',
   bgcolor: 'background.paper',
   maxWidth: 425,
   width: '100%',

@@ -67,7 +67,7 @@ const SuggestedAccounts = () => {
           justifyContent='center' 
           pt={3}
         >
-        <CircularProgress />
+          <CircularProgress />
         </Box> 
       )
     }

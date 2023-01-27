@@ -13,29 +13,41 @@ import {
   CardHeader,
   CardMedia,
   Checkbox,
+  Collapse,
   IconButton,
   Snackbar,
   Typography
 } from '@mui/material'
+import { Modal } from '@/components/layout/Auth'
+import { Flex } from '@/components/atoms/Flex'
 import { red } from '@mui/material/colors'
-import { Flex } from './Flex'
-import { Modal } from '../layout/Auth'
 
-const PostCard = () => {
+type Props = {
+  user?: {
+    username: string
+    color: string
+  }
+  text?: string
+}
+
+const PostCard = ({ user, text }: Props) => {
+
+  const { boolean, onToggle } = useBoolean()
+
   return (
     <Card>
       <CardHeader
-        title='Jesse Pinkman'
+        title={user?.username || 'Jesse Pinkman'}
         titleTypographyProps={{
           fontWeight: 500
         }}
         subheader='3 days ago'
         avatar={
           <Avatar
-            sx={{ bgcolor: red[300] }}
+            sx={{ bgcolor: user?.color || red[300] }}
             aria-label='post'
           >
-            R
+            {user?.username[0]?.toUpperCase() || 'J'}
           </Avatar>
         }
       />
@@ -45,17 +57,26 @@ const PostCard = () => {
         image='https://cdn.pixabay.com/photo/2012/08/27/14/19/mountains-55067__340.png'
       />
       <CardContent>
-        <Typography variant='body2'>
-          This is a post
+        <Typography 
+          variant='body2'
+          sx={{
+            whiteSpace: 'pre-wrap'
+          }}
+        >
+          {text || 'This is a post'}
         </Typography>
       </CardContent>
-      <Actions />
+      <Actions handleExpand={onToggle} />
+      <Collapse in={boolean}>
+        Comments
+      </Collapse>
     </Card>
   )
 }
 
-const Actions = () => {
-
+const Actions = ({ handleExpand }: {
+  handleExpand: () => void
+}) => {
   const { boolean: isOpen, setTrue: onOpenSnackbar, setFalse: onCloseSnackbar } = useBoolean()
   const { user, open, onClose, verifyIfUserExists } = useAuthModal()
 
@@ -104,7 +125,7 @@ const Actions = () => {
         </Typography>
       </Flex>
       <Flex>
-        <IconButton>
+        <IconButton onClick={handleExpand}>
           <ChatBubbleOutline />
         </IconButton>
         <Typography component='span' variant='body2'>

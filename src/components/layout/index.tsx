@@ -1,6 +1,6 @@
 import { Box, Container } from '@mui/material'
 import { Sidebar } from '@/components/layout/Sidebar'
-import Appbar from './Appbar'
+import Appbar from './Appbar/Appbar'
 
 export default function AppLayout({ children }: {
   children: React.ReactNode

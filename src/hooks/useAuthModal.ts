@@ -1,11 +1,12 @@
+import useAccount from './useAccount'
 import useBoolean from './useBoolean'
 
 const useAuthModal = () => {
-  const user = false
+  const { account } = useAccount()
   const { boolean, setTrue, setFalse } = useBoolean()
 
   const verifyIfUserExists = (action: Function) => {
-    if (user) {
+    if (account) {
       action()
       return;
     }
@@ -13,7 +14,7 @@ const useAuthModal = () => {
   }
 
   return {
-    user,
+    user: account,
     open: boolean,
     onOpen: setTrue,
     onClose: setFalse,
