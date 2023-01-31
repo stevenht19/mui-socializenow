@@ -1,9 +1,27 @@
-import { Tabs } from '@mui/material'
-import { Form } from './Form'
 import { useTabs } from './hooks'
+import { Tab, Tabs } from '@mui/material'
 
-const loginInputs = ['Username', 'Password']
-const signUpInputs = loginInputs.concat('Confirm Password')
+type TabsProps = {
+  firstView: React.ReactNode
+  secondView: React.ReactNode
+}
+
+export const ModalTabs: React.FC<TabsProps> = ({ firstView, secondView }) => {
+  const { value, onChange } = useTabs()
+
+  return <>
+    <Tabs value={value} onChange={onChange} variant='fullWidth'>
+      <Tab label='Login' />
+      <Tab label='Register' />
+    </Tabs>
+    <TabPanel value={value} index={0}>
+      {firstView}
+    </TabPanel>
+    <TabPanel value={value} index={1}>
+      {secondView}
+    </TabPanel>
+  </>
+}
 
 type TabPanelProps = {
   children?: React.ReactNode
@@ -28,31 +46,4 @@ const TabPanel = ({
       }
     </div>
   )
-}
-
-export const ModalTabs = ({ customMessage, children }: {
-  customMessage?: string
-  children: React.ReactNode
-}) => {
-  const { value, onChange } = useTabs(Boolean(customMessage))
-
-  return <>
-    <Tabs value={value} onChange={onChange} variant='fullWidth'>
-      {children}
-    </Tabs>
-    <TabPanel value={value} index={0}>
-      <Form
-        subtitle={'Welcome again!'}
-        textButton='Login'
-        inputs={loginInputs}
-      />
-    </TabPanel>
-    <TabPanel value={value} index={1}>
-      <Form
-        subtitle={customMessage || 'Create an account for free!'}
-        textButton='Sign up'
-        inputs={signUpInputs}
-      />
-    </TabPanel>
-  </>
 }

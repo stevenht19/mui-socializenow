@@ -1,7 +1,8 @@
-import { useState } from 'react'
+import { useAccount } from '@/hooks'
 import { UserAvatar } from '@/components/atoms/UserAvatar'
-import { AccountCircle, ExitToApp } from '@mui/icons-material'
-import { IconButton, Menu, MenuItem, Tooltip, styled, MenuProps, Divider } from '@mui/material'
+import { AccountCircle, ExitToApp, Inbox } from '@mui/icons-material'
+import { IconButton, Menu, MenuItem, Tooltip, styled, MenuProps, Divider, Badge } from '@mui/material'
+import { useAnchor } from './hooks'
 
 const StyledMenu = styled((props: MenuProps) => (
   <Menu
@@ -49,21 +50,19 @@ const menuPaperProps = {
     },
   }
 }
-export const AccountMenu = () => {
-  const [anchorEl, setAnchor] = useState<HTMLElement | null>(null)
-
-  const isOpen = Boolean(anchorEl)
-
-  const onClick = (e: React.MouseEvent<HTMLElement>) => {
-    setAnchor(e.currentTarget)
-  }
-
-  const onClose = () => {
-    setAnchor(null)
-  }
+const AccountMenu = () => {
+  const { logout } = useAccount()
+  const { anchorEl, isOpen, onClick, onClose } = useAnchor()
 
   return (
     <>
+      <Tooltip title='Inbox'>
+        <IconButton>
+          <Badge color='error' badgeContent={9}>
+            <Inbox color='action' />
+          </Badge>
+        </IconButton>
+      </Tooltip>
       <Tooltip title='Settings'>
         <IconButton
           onClick={onClick}
@@ -89,8 +88,8 @@ export const AccountMenu = () => {
           <AccountCircle />
           Profile
         </MenuItem>
-        <Divider sx={{ my: .5 }}/>
-        <MenuItem>
+        <Divider sx={{ my: .5 }} />
+        <MenuItem onClick={logout}>
           <ExitToApp />
           Logout
         </MenuItem>
@@ -98,3 +97,4 @@ export const AccountMenu = () => {
     </>
   )
 }
+export default AccountMenu

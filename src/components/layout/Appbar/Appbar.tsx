@@ -1,18 +1,23 @@
 import { AppBar, Toolbar, Container } from '@mui/material'
 import { useBoolean } from '@/hooks'
+import { withAuthModal } from '@/hocs'
 import { PostModal } from '@/components/layout/Posts'
 import { AppbarButtons } from './AppbarButtons'
+
+const ButtonsWithModal = withAuthModal(AppbarButtons)
 
 const Buttons = () => {
   const { boolean, setTrue, setFalse } = useBoolean()
   
-  return <>
-    <PostModal
-      open={boolean}
-      onClose={setFalse}
-    />
-    <AppbarButtons handlePostModal={setTrue} />
-  </>
+  return (
+    <div>
+      <PostModal
+        open={boolean}
+        onClose={setFalse}
+      />
+      <ButtonsWithModal action={setTrue} />
+    </div>
+  )
 }
 
 const Header = () => {
@@ -20,8 +25,8 @@ const Header = () => {
     <AppBar
       position='sticky'
       color='inherit'
-      elevation={0}
       variant='outlined'
+      elevation={0}
     >
       <Toolbar>
         <Container sx={{

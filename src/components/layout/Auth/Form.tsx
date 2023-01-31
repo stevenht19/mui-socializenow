@@ -1,48 +1,58 @@
-import { Box, Button, TextField, Typography } from '@mui/material'
+import { LoadingButton } from '@/components/atoms/LoadingButton'
+import { Box, TextField, Typography } from '@mui/material'
 
 type Props = {
   subtitle: string
   textButton: string
-  inputs: string[]
+  isSubmitting: boolean
+  children: React.ReactNode
+  onSubmit: (e: React.FormEvent<HTMLFormElement>) => void
 }
 
 export const Form: React.FC<Props> = ({ 
   subtitle,
-  textButton, 
-  inputs
+  textButton,
+  onSubmit,
+  isSubmitting,
+  children
 }) => {
-  const onSubmit = () => {
-    //window.location.reload()
-  }
-
   return (
     <Box component='form' p={3.5} onSubmit={onSubmit}>
       <Typography mb={1.5} color='text.secondary'>
         {subtitle}
       </Typography>
-      {
-        inputs.map((input) => (
-          <TextField
-            key={input}
-            label={input}
-            sx={{
-              mt: 2.2
-            }}
-            fullWidth
-          />
-        ))
-      }
-      <Button
-        type='submit'
-        variant='contained'
-        fullWidth
-        size='large'
-        sx={{
-          mt: 5.2
-        }}
-      >
+      {children}
+      <LoadingButton loading={isSubmitting}>
         {textButton}
-      </Button>
+      </LoadingButton>
     </Box>
   )
 }
+
+type FormInputProps = {
+  label: string
+  type?: string
+  value: string
+  name: string
+  gap?: number
+  onChange(e: React.ChangeEvent<HTMLInputElement>): void
+}
+
+export const FormInput = ({ 
+  name,
+  gap,
+  label = '',
+  value = '',
+  type = 'text',
+  onChange
+}: FormInputProps) => (
+  <TextField
+    label={label}
+    type={type} 
+    value={value}
+    sx={{ mt: gap || 2.2 }}
+    name={name}
+    onChange={onChange}
+    fullWidth
+  />
+)

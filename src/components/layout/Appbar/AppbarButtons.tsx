@@ -1,53 +1,38 @@
-import { useAuthModal } from '@/hooks'
+import { lazy, Suspense } from 'react'
+import { AccountCircle, Add } from '@mui/icons-material'
+import { Button } from '@/components/atoms/Button'
 import { Flex } from '@/components/atoms/Flex'
-import { Modal } from '@/components/layout/Auth'
-import { AccountCircle, Add, Inbox, Notifications } from '@mui/icons-material'
-import { Badge, Button, IconButton, Tooltip } from '@mui/material'
-import { AccountMenu } from './AccountMenu'
+import { Props } from '@/hocs/withAuthModal'
 
-type Props = {
-  handlePostModal: () => void
-}
+const AccountMenu = lazy(() => import('./AccountMenu'))
 
-export const AppbarButtons = ({ handlePostModal }: Props) => {
-  const { user, open, onOpen, onClose, verifyIfUserExists } = useAuthModal()
-
-  const handleUploadPost = () => {
-    verifyIfUserExists(handlePostModal)
-  }
-
+export const AppbarButtons: React.FC<Props> = ({ 
+  user,
+  onOpen,
+  verifyUser 
+}) => {
   return (
     <Flex gap={2}>
-      <Modal open={open} onClose={onClose} />
       <Button
         variant='outlined'
+        onClick={verifyUser}
         startIcon={<Add />}
-        onClick={handleUploadPost}
-        sx={{
-          mr: 1
-        }}
       >
         Post
       </Button>
       {
         !user ? (
           <Button
-            variant='contained'
             startIcon={<AccountCircle />}
             onClick={onOpen}
           >
             Login
           </Button>
-        ) : <>
-          <Tooltip title='Inbox'>
-            <IconButton>
-              <Badge color='error' badgeContent={9}>
-                <Inbox color='action' />
-              </Badge>
-            </IconButton>
-          </Tooltip>
-          <AccountMenu />
-        </>
+        ) : (
+          <Suspense fallback={null}>
+            <AccountMenu />
+          </Suspense>
+        )
       }
     </Flex>
   )

@@ -1,26 +1,23 @@
 import Modal, { ModalProps } from '@/components/atoms/Modal'
-import { Tab } from '@mui/material'
 import { ModalTabs } from './Tabs'
+import { Login } from './Login'
+import { Signup } from './Signup'
 
-type Props = ModalProps & {
-  customMessage?: string
-}
-
-const AuthModal: React.FC<Props> = ({
+const AuthModal: React.FC<ModalProps> = ({
   open,
-  onClose,
-  customMessage
+  onClose
 }) => {
   return (
     <Modal
       open={open}
       onClose={onClose}
     >
-      <ModalTabs customMessage={customMessage}>
-        <Tab label='Login' />
-        <Tab label='Register' />
-      </ModalTabs>
+      <ModalTabs 
+        firstView={<Login onClose={onClose} />}
+        secondView={<Signup onClose={onClose} />}
+      />
     </Modal>
   )
 }
+
 export default AuthModal

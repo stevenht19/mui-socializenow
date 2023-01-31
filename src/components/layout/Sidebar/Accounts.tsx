@@ -6,7 +6,7 @@ import {
   ListItemText, 
   ListSubheader 
 } from '@mui/material'
-import FakeAccount from '@/models/FakeAccount'
+import { FakeAccount } from '@/models'
 
 type Props = {
   subheader: string
@@ -19,7 +19,7 @@ export const Accounts: React.FC<Props> = ({
 }) => {
   return <>
     {
-      accounts?.length ? (
+      !!accounts?.length && (
         <List subheader={
           <ListSubheader disableGutters>
             {subheader}
@@ -34,7 +34,7 @@ export const Accounts: React.FC<Props> = ({
             ))
           }
         </List>
-      ) : null
+      )
     }
   </>
 }

@@ -7,7 +7,7 @@ type Props = {
 
 export const UserAvatar = ({ customSize }: Props) => {
   const { account } = useAccount()
-  
+
   if (!account) {
     return <Avatar />
   }

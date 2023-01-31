@@ -1,6 +1,6 @@
 import { usePosts } from '@/hooks'
-import ListView from '@/components/atoms/ListView'
-import PostCard from '@/components/atoms/PostCard'
+import { ListView } from '@/components/atoms/ListView'
+import { PostCard } from '@/components/atoms/cards/Post'
 
 export const UserPosts = () => {
   const { userPosts } = usePosts()
@@ -8,12 +8,10 @@ export const UserPosts = () => {
   if (!userPosts.length) return null
 
   return (
-    <ListView pb>
-      {
-        userPosts.map((props) => (
-          <PostCard {...props} />
-        ))
-      }
-    </ListView>
+    <ListView
+      items={userPosts}
+      renderItem={PostCard}
+      pb 
+    />
   )
 }

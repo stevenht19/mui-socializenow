@@ -1,12 +1,5 @@
 import { createContext, useState } from 'react'
-
-type Post = {
-  user: {
-    color: string
-    username: string
-  }
-  text: string
-}
+import { Post } from '@/models'
 
 type PostContextType = {
   userPosts: Post[]
@@ -15,7 +8,7 @@ type PostContextType = {
 
 export const PostContext = createContext<PostContextType>({
   userPosts: [],
-  addPost() {},
+  addPost() {}
 })
 
 export default function Posts({ children }: {

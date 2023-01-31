@@ -1,13 +1,11 @@
+import { User } from '@/models'
 import { Flex } from '@/components/atoms/Flex'
 import { UserAvatar } from '@/components/atoms/UserAvatar'
 import { Box, Button, InputBase, Typography } from '@mui/material'
 import { usePostInput } from './hooks'
 
 type Props = {
-  account: {
-    username: string
-    color: string
-  }
+  account: User
   children: React.ReactNode
   onClose: () => void
 }
@@ -15,7 +13,7 @@ type Props = {
 export const Form: React.FC<Props> = ({ 
   children, 
   account, 
-  onClose 
+  onClose
 }) => {
   const { value, isDisabled, onChange, handleSubmit } = usePostInput(onClose)
 
@@ -28,7 +26,7 @@ export const Form: React.FC<Props> = ({
       <Flex gap={1.5} mb={2}>
         <UserAvatar />
         <Typography variant='body1' fontWeight={400}>
-          {account?.username}
+          {account.username}
         </Typography>
       </Flex>
       <InputBase

@@ -15,11 +15,11 @@ const useBoolean = (initialState = false) => {
     setBoolean(bool => !bool) 
   }
 
-  return {
+  return [
     boolean,
     setTrue,
     setFalse,
     onToggle
-  }
+  ] as const
 }
 export default useBoolean

@@ -1,5 +1,6 @@
-import { useAccount, usePosts } from '@/hooks'
 import { useState } from 'react'
+import { useAccount, usePosts } from '@/hooks'
+import { createPost } from '../services/createPost'
 
 const usePostInput = (action: () => void) => {
   const { account } = useAccount()
@@ -12,13 +13,19 @@ const usePostInput = (action: () => void) => {
     setValue(e.target.value)
   }
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
     if (value?.trim()?.length < 3) return
     
+    const post = await createPost({
+      author: account!.id,
+      text: value,
+      date: new Date()
+    })
+
     action()
-    addPost({ user: account!, text: value })
+    addPost(post)
   }
 
   return {

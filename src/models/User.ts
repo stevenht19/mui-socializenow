@@ -1,5 +1,10 @@
-interface User {
+interface Account {
+  id: string
   username: string
   color: string
+  password: string
 }
-export default User
+
+export type User = Omit<Account, 'id' | 'password'>
+
+export default Account
