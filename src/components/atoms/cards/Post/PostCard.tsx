@@ -9,33 +9,38 @@ import {
   CardContent,
   CardHeader,
   CardMedia,
-  Typography
+  Typography,
 } from '@mui/material'
 
 const ActionsWithModal = withAuthModal(Actions)
 
 dayjs.extend(relativeTime)
 
-const PostCard = ({ user, text, date }: Post) => {
+const PostCard = ({ author, text, createdAt }: Post) => {
+  const { username, color } = author
 
-  const handleLike = () => {
-    console.log('handleLike')
-  }
+  const date = dayjs(createdAt).fromNow()
+
+  const handleLike = () => { }
 
   return (
     <Card>
       <CardHeader
-        title={user?.username || 'Jesse Pinkman'}
-        subheader={dayjs(date).fromNow()}
+        title={
+          <>
+            {author.username + ' '}
+          </>
+        }
+        subheader={date}
         titleTypographyProps={{
           fontWeight: 500
         }}
         avatar={
           <Avatar
-            sx={{ bgcolor: user.color }}
+            sx={{ bgcolor: color }}
             aria-label='post'
           >
-            {user.username[0]?.toUpperCase()}
+            {username[0].toUpperCase()}
           </Avatar>
         }
       />
@@ -45,13 +50,14 @@ const PostCard = ({ user, text, date }: Post) => {
         image='https://cdn.pixabay.com/photo/2012/08/27/14/19/mountains-55067__340.png'
       />
       <CardContent>
-        <Typography 
+        <Typography
+          component='p'
           variant='body2'
           sx={{
             whiteSpace: 'pre-wrap'
           }}
         >
-          {text || 'This is a post'}
+          {text}
         </Typography>
       </CardContent>
       <ActionsWithModal action={handleLike} />

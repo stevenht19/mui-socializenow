@@ -6,11 +6,13 @@ const useTabs = () => {
   const onChange = (_e: React.SyntheticEvent, newValue: number) => {
     setValue(newValue)
   }
+
+  const onBack = () => setValue(0)
   
   return {
     value, 
-    onChange
+    onChange,
+    onBack
   }
 }
-
 export default useTabs

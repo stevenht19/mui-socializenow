@@ -1,26 +1,30 @@
+import { Fragment } from 'react'
 import { Box, Container } from '@mui/material'
 import { Sidebar } from '@/components/layout/Sidebar'
-import Appbar from './Appbar/Appbar'
+import { Appbar } from '@/components/layout/Appbar'
 
 export default function AppLayout({ children }: {
   children: React.ReactNode
 }) {
-  return <>
-    <Appbar />
-    <Container
-      sx={{
-        display: 'flex',
-        gap: 10
-      }}
-    >
-      <Sidebar />
-      <Box
-        mx='auto'
-        flex={1}
-        pt={3}
+  return (
+    <Fragment>
+      <Appbar />
+      <Container
+        disableGutters
+        sx={{ 
+          display: 'flex', 
+        }}
       >
-        {children}
-      </Box>
-    </Container>
-  </>
+        <Sidebar />
+        <Box
+          mx='auto'
+          flex={1}
+          pt={3}
+          minHeight='100vh'
+        >
+          {children}
+        </Box>
+      </Container>
+    </Fragment>
+  )
 }

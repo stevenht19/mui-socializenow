@@ -1,12 +1,13 @@
 import { createContext, useEffect, useState } from 'react'
-import { User } from '@/models'
+import { Account } from '@/models'
 import { Snackbar } from '@/components/atoms/Snackbar'
-import { getAccount } from './services/getAccount'
+import { getAccount } from '@/context/services/getAccount'
 
 type AccountContextType = {
-  account: User | null
+  account: Account | null
+  isLoading?: boolean
   logout(): void
-  logIn(account?: User): void
+  logIn(account?: Account): void
 }
 
 const tokenName = 'mui-social-app'
@@ -17,18 +18,20 @@ export const AccountContext = createContext<AccountContextType>({
   logIn() {}
 })
 
-export default function Account({ children }: {
+export default function AccountProvider({ children }: {
   children: React.ReactNode
 }) {
   const token = localStorage.getItem(tokenName)
-  const [account, setAccount] = useState<User | null>(null)
+  const [account, setAccount] = useState<Account | null>(null)
   const [isLogged, setIsLogged] = useState<boolean>(false)
+  const [isLoading, setIsLoading] = useState<boolean>(token ? true : false)
 
   useEffect(() => {
     if (!token) return
 
     getAccount(token)
       .then(setAccount)
+      .finally(() => setIsLoading(false))
 
   }, [])
 
@@ -37,7 +40,7 @@ export default function Account({ children }: {
     setAccount(null)
   }
 
-  const logIn = (account?: User) => {
+  const logIn = (account?: Account) => {
     if (!account) return;
     
     setAccount(account)
@@ -51,6 +54,7 @@ export default function Account({ children }: {
   return (
     <AccountContext.Provider value={{
       account,
+      isLoading,
       logout,
       logIn
     }}>

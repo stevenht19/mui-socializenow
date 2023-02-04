@@ -1,21 +1,29 @@
+import { lazy, Suspense } from 'react'
 import { AppBar, Toolbar, Container } from '@mui/material'
 import { useBoolean } from '@/hooks'
 import { withAuthModal } from '@/hocs'
-import { PostModal } from '@/components/layout/Posts'
 import { AppbarButtons } from './AppbarButtons'
+
+const PostModal = lazy(() => import('@/components/layout/Posts/Modal/Modal'))
 
 const ButtonsWithModal = withAuthModal(AppbarButtons)
 
 const Buttons = () => {
-  const { boolean, setTrue, setFalse } = useBoolean()
-  
+  const [isOpen, onOpen, onClose] = useBoolean()
+
   return (
     <div>
-      <PostModal
-        open={boolean}
-        onClose={setFalse}
-      />
-      <ButtonsWithModal action={setTrue} />
+      {
+        isOpen && (
+          <Suspense fallback={null}>
+            <PostModal
+              open={isOpen}
+              onClose={onClose}
+            />
+          </Suspense>
+        )
+      }
+      <ButtonsWithModal action={onOpen} />
     </div>
   )
 }

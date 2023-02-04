@@ -33,7 +33,7 @@ export const Actions: React.FC<Props> = ({ user, verifyUser }) => {
           )
         }
         <Typography component='span' variant='body2'>
-          140
+          0
         </Typography>
       </Flex>
       <Flex>
@@ -41,7 +41,7 @@ export const Actions: React.FC<Props> = ({ user, verifyUser }) => {
           <ChatBubbleOutline />
         </IconButton>
         <Typography component='span' variant='body2'>
-          30
+          0
         </Typography>
       </Flex>
       <IconButton

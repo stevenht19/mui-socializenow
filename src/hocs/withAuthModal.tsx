@@ -4,12 +4,13 @@ import { User } from '@/models'
 
 export type Props = {
   user: User | null
+  isLoading?: boolean
   onOpen: () => void
   verifyUser: () => void
 }
 
 type Params = {
-  action: () => void
+  action?: () => void
 }
 
 const Modal = lazy(() => import('@/components/layout/Auth/Modal'))
@@ -18,11 +19,11 @@ const withAuthModal = (Component: React.FC<Props>) => {
   return ({ action }: Params) => {
 
     const [isOpen, onOpen, onClose] = useBoolean()
-    const { account } = useAccount()
+    const { account, isLoading } = useAccount()
 
     const verifyIfUserExists = () => {
       if (account) {
-        action()
+        action && action()
         return;
       }
       onOpen()
@@ -42,6 +43,7 @@ const withAuthModal = (Component: React.FC<Props>) => {
         }
         <Component
           user={account}
+          isLoading={isLoading}
           onOpen={onOpen}
           verifyUser={verifyIfUserExists}
         />

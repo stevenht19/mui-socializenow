@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import FakeAccount, { FakeAccountResponse } from '@/models/FakeAccount'
 
-const API = 'https://randomuser.me/api/?results=5'
+const API = 'https://randomuser.me/api/?results=4'
 
 const useFakeAccounts = () => {
   const [fakeAccounts, setFakeAccounts] = useState<FakeAccount[]>([])

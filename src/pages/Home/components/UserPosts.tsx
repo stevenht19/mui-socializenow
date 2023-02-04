@@ -11,7 +11,6 @@ export const UserPosts = () => {
     <ListView
       items={userPosts}
       renderItem={PostCard}
-      pb 
     />
   )
 }

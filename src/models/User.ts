@@ -1,5 +1,5 @@
 interface Account {
-  id: string
+  _id: string
   username: string
   color: string
   password: string

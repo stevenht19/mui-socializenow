@@ -1,9 +1,12 @@
 import { User } from './User'
 
 interface Post {
-  user: User
+  _id: string
+  author: User
   text: string
+  createdAt: Date
+  feeling?: string
   picture?: string
-  date: Date
 }
+
 export default Post

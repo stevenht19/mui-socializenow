@@ -1,5 +1,6 @@
 import Modal, { ModalProps } from '@/components/atoms/Modal'
-import { ModalTabs } from './Tabs'
+import { TabPanelProvider } from '@/context/TabPanel'
+import { Tab } from '@mui/material'
 import { Login } from './Login'
 import { Signup } from './Signup'
 
@@ -12,10 +13,13 @@ const AuthModal: React.FC<ModalProps> = ({
       open={open}
       onClose={onClose}
     >
-      <ModalTabs 
+      <TabPanelProvider
         firstView={<Login onClose={onClose} />}
         secondView={<Signup onClose={onClose} />}
-      />
+      >
+        <Tab label='Login' />
+        <Tab label='Register' />
+      </TabPanelProvider>
     </Modal>
   )
 }

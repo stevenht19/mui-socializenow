@@ -1,4 +1,4 @@
-import { User } from '@/models'
+import { Account } from '@/models'
 
 type ErrorResponse = {
   type: 'error'
@@ -7,7 +7,7 @@ type ErrorResponse = {
 
 type Response = {
   type: 'sucess',
-  user: User
+  user: Account
 }
 
 export const getAccount = async (token: string) => {

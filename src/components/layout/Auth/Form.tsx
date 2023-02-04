@@ -22,7 +22,10 @@ export const Form: React.FC<Props> = ({
         {subtitle}
       </Typography>
       {children}
-      <LoadingButton loading={isSubmitting}>
+      <LoadingButton 
+        loading={isSubmitting} 
+        isDisabled={false}
+      >
         {textButton}
       </LoadingButton>
     </Box>

@@ -9,7 +9,6 @@ interface FakeAccount {
     last: string
   }
   picture: {
-    medium: string
     thumbnail: string
   }
 }

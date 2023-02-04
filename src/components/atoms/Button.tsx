@@ -9,7 +9,8 @@ export const Button: React.FC<Props> = ({
   onClick, 
   children, 
   startIcon, 
-  variant, 
+  variant,
+  fullWidth,
   sx
 }) => {
   return (
@@ -18,6 +19,7 @@ export const Button: React.FC<Props> = ({
       onClick={onClick}
       {...(startIcon && { startIcon })}
       {...(sx && { sx })}
+      {...(fullWidth && { fullWidth })}
     >
       {children}
     </MuiButton>
