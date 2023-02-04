@@ -1,11 +1,10 @@
-import { Fragment } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { useTabPanel } from '@/context/hooks'
 import { Grid, Typography, Box, styled } from '@mui/material'
 import { grey } from '@mui/material/colors'
-import { ModalHeader } from '../components/ModalHeader'
 import { emojis } from '../emojis'
 import { Emoji } from '../types'
+import { FormBox } from '../components/Box'
 
 const StyledBox = styled(Box)`
   display: flex;
@@ -19,26 +18,18 @@ const StyledBox = styled(Box)`
 
 export const FeelingsView = () => {
   return (
-    <Fragment>
-      <ModalHeader>
-        How are you feeling today?
-      </ModalHeader>
-      <Box
-        my={1.5}
-        mx={2}
-      >
-        <Grid container>
-          {
-            emojis.map((props) => (
-              <FeelingItem
-                key={props.emoji} 
-                {...props} 
-              />
-            ))
-          }
-        </Grid>
-      </Box>
-    </Fragment>
+    <FormBox title='How are you feeling today?'>
+      <Grid container>
+        {
+          emojis.map((props) => (
+            <FeelingItem
+              key={props.emoji}
+              {...props}
+            />
+          ))
+        }
+      </Grid>
+    </FormBox>
   )
 }
 
@@ -52,8 +43,8 @@ const FeelingItem = ({ name, emoji }: Emoji) => {
   }
 
   return (
-    <Grid 
-      item 
+    <Grid
+      item
       xs={6}
       onClick={onClick}
       fontSize='1.4rem'

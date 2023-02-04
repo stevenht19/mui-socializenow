@@ -31,31 +31,3 @@ export const Form: React.FC<Props> = ({
     </Box>
   )
 }
-
-type FormInputProps = {
-  label: string
-  type?: string
-  value: string
-  name: string
-  gap?: number
-  onChange(e: React.ChangeEvent<HTMLInputElement>): void
-}
-
-export const FormInput = ({ 
-  name,
-  gap,
-  label = '',
-  value = '',
-  type = 'text',
-  onChange
-}: FormInputProps) => (
-  <TextField
-    label={label}
-    type={type} 
-    value={value}
-    sx={{ mt: gap || 2.2 }}
-    name={name}
-    onChange={onChange}
-    fullWidth
-  />
-)

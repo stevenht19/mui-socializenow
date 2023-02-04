@@ -17,6 +17,7 @@ export const Button: React.FC<Props> = ({
     <MuiButton
       variant={variant || 'contained'}
       onClick={onClick}
+      disableFocusRipple
       {...(startIcon && { startIcon })}
       {...(sx && { sx })}
       {...(fullWidth && { fullWidth })}

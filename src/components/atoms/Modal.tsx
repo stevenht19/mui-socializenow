@@ -31,6 +31,7 @@ const Modal: React.FC<ModalProps> = ({
     <MuiModal 
       open={open} 
       onClose={onClose}
+      disableRestoreFocus
     >
       <Box 
         sx={style}

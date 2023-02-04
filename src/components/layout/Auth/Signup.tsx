@@ -1,8 +1,9 @@
-import { ModalProps } from '@/components/atoms/Modal'
-import { useAccount } from '@/hooks'
-import { Form, FormInput } from './Form'
-import { useForm } from './hooks'
+import { SubmitHandler, useForm } from 'react-hook-form'
+import { useAccount, useBoolean } from '@/hooks'
+import { TextField } from '@mui/material'
+import { Form } from './Form'
 import { getUser } from './services/auth'
+import { Props } from './types'
 
 type Inputs = {
   username: string
@@ -10,50 +11,51 @@ type Inputs = {
   confirmPassword: string
 }
 
-export const Signup = ({ onClose }: {
-  onClose: ModalProps['onClose']
-}) => {
+export const Signup = ({ onClose }: Props) => {
   const { logIn } = useAccount()
+  const { register, handleSubmit, formState: { errors } } = useForm<Inputs>()
+  const [isLoading, setIsLoading, stopLoading] = useBoolean()
 
-  const { formValues, onChange, isSubmitting, handleSubmit } = useForm<Inputs>({
-    username: '',
-    password: '',
-    confirmPassword: ''
-  }, onSubmit)
-
-  const { username, password, confirmPassword } = formValues
-
-  async function onSubmit() {
-    logIn(await getUser({ username, password }, '/signup'))
-    onClose()
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    try {
+      setIsLoading()
+      const user = await getUser(data, '/signup')
+      logIn(user)
+      onClose()
+    } catch (_) {
+      stopLoading()
+    }
   }
 
   return (
-    <Form 
+    <Form
       subtitle='Create an account for free'
       textButton='Sign up'
-      isSubmitting={isSubmitting}
-      onSubmit={handleSubmit}
+      isSubmitting={isLoading}
+      onSubmit={handleSubmit(onSubmit)}
     >
-      <FormInput 
+      <TextField
         label='Username'
-        name='username'
-        value={username}
-        onChange={onChange}
+        fullWidth
+        sx={{ mt: 2.5 }}
+        error={Boolean(errors?.username)}
+        {...register('username', { required: true })}
       />
-      <FormInput 
-        label='Password' 
+      <TextField
+        label='Password'
         type='password'
-        name='password'
-        value={password}
-        onChange={onChange}
+        fullWidth
+        sx={{ mt: 2.5 }}
+        error={Boolean(errors?.password)}
+        {...register('password', { required: true })}
       />
-      <FormInput 
-        label='Confirm Password' 
+      <TextField
+        label='Confirm Password'
         type='password'
-        name='confirmPassword'
-        value={confirmPassword}
-        onChange={onChange}
+        fullWidth
+        sx={{ mt: 2.5 }}
+        error={Boolean(errors?.password)}
+        {...register('confirmPassword', { required: true })}
       />
     </Form>
   )

@@ -6,7 +6,7 @@ import { CreatePostView } from './views/CreatePostView'
 import { CreatePost } from './types'
 
 const PostModal = ({ open, onClose }: ModalProps) => {
-  const methods = useForm<CreatePost>({ mode: 'onBlur'})
+  const methods = useForm<CreatePost>({ mode: 'onBlur' })
 
   const onSubmit: SubmitHandler<CreatePost> = (data) => {
     console.log(data)

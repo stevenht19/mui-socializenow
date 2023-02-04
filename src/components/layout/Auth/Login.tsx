@@ -1,50 +1,52 @@
-import { useAccount } from '@/hooks'
-import { Form, FormInput } from './Form'
-import { useForm } from './hooks'
+import { useForm, SubmitHandler } from 'react-hook-form'
+import { useAccount, useBoolean } from '@/hooks'
+import { TextField } from '@mui/material'
 import { getUser } from './services/auth'
+import { Form } from './Form'
+import { Props } from './types'
 
 type Inputs = {
   username: string
   password: string
 }
 
-type Props = {
-  onClose(): void
-}
-
-export const Login: React.FC<Props> = ({ onClose }) => {
+export const Login = ({ onClose }: Props) => {
   const { logIn } = useAccount()
+  const { register, handleSubmit, formState: { errors } } = useForm<Inputs>()
+  const [isLoading, setIsLoading, stopLoading] = useBoolean()
 
-  const { formValues, onChange, isSubmitting, handleSubmit } = useForm<Inputs>({
-    username: '',
-    password: ''
-  }, onSubmit)
-
-  async function onSubmit() {
-    logIn(await getUser(formValues, '/login'))
-    onClose()
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    try {
+      setIsLoading()
+      const user = await getUser(data, '/login')
+      logIn(user)
+      onClose() 
+    } catch(_) {
+      stopLoading()
+    }
   }
 
   return (
-    <Form 
+    <Form
       subtitle='Log in into your account'
       textButton='Login'
-      isSubmitting={isSubmitting}
-      onSubmit={handleSubmit}
+      isSubmitting={isLoading}
+      onSubmit={handleSubmit(onSubmit)}
     >
-      <FormInput 
+      <TextField
         label='Username'
-        name='username'
-        value={formValues.username}
-        onChange={onChange}
+        fullWidth
+        sx={{ mt: 2.7 }}
+        error={Boolean(errors?.username)}
+        {...register('username', { required: true })}
       />
-      <FormInput 
-        label='Password' 
+      <TextField
+        label='Password'
         type='password'
-        name='password'
-        gap={2.5}
-        value={formValues.password}
-        onChange={onChange}
+        fullWidth
+        sx={{ mt: 2.7 }}
+        error={Boolean(errors?.password)}
+        {...register('password', { required: true })}
       />
     </Form>
   )
