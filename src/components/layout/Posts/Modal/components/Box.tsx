@@ -8,7 +8,7 @@ export const FormBox = ({ title, children }: {
 }) => {
   return (
     <Fragment>
-      <ModalHeader {...(title && { disableArrowBack: true })}>
+      <ModalHeader {...(!title && { disableArrowBack: true })}>
         {title ?? 'Create Post'}
       </ModalHeader>
       <Box

@@ -6,14 +6,14 @@ type PostContextType = {
   posts: Post[]
   userPosts: Post[]
   isLoading: boolean
-  addPost(post: Omit<Post, 'date'>, author: Account): void
+  addPost: (post: Omit<Post, 'date'>, author: Account) => void
 }
 
 export const PostContext = createContext<PostContextType>({
   posts: [],
   userPosts: [],
   isLoading: true,
-  addPost() {},
+  addPost: () => {},
 })
 
 export default function Posts({ children }: {
@@ -27,7 +27,7 @@ export default function Posts({ children }: {
       .then(setPosts)
   }, [])
 
-  function addPost(post: Post, author: Account) {
+  const addPost = (post: Post, author: Account) => {
     setUserPosts(actualPosts => [{...post, author }, ...actualPosts])
   }
 

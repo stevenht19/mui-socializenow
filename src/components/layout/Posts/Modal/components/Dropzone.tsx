@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo  } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { useDropzone } from 'react-dropzone'
 import { Button } from '@/components/atoms/AbsoluteButton'
@@ -7,7 +7,9 @@ import { Close } from '@mui/icons-material'
 import { CreatePost } from '../types'
 
 const Image = styled('img')({
-  width: '100%'
+  width: '100%',
+  maxHeight: '15rem',
+  objectFit: 'cover'
 })
 
 const DropzoneBox = styled('div')({
@@ -25,16 +27,17 @@ const baseStyle = {
   borderRadius: 2,
   borderStyle: 'dashed',
   color: '#bdbdbd',
+  cursor: 'pointer',
   outline: 'none',
   transition: 'border .24s ease-in-out'
 }
 
 type Props = {
-  image?: CreatePost['picture']
-  children: React.ReactNode
+  image?: CreatePost['image']
+  onClose: () => void
 }
 
-export const Dropzone = ({ image, children }: Props) => {
+export const Dropzone = ({ image, onClose }: Props) => {
   const { palette } = useTheme()
   const { register, unregister, setValue } = useFormContext()
 
@@ -71,24 +74,41 @@ export const Dropzone = ({ image, children }: Props) => {
     isDragReject,
   ]);
 
+  const handleDropzone = () => {
+    if (image) {
+      setValue('image', undefined)
+      return;
+    }
+    
+    onClose()
+  }
+
   return (
     <DropzoneBox>
-      {children}
-      <div {...getRootProps({ style })}>
-        <input
-          {...getInputProps()}
-        />
-        <Typography>
-          Drag and drop an image.
-        </Typography>
-      </div>
+      <Button
+        onClick={handleDropzone}
+        sx={{
+          right: 5,
+          top: 5
+        }}>
+        <Close />
+      </Button>
       {
-        image && (
+        image ? (
           <div>
             <Image
               src={URL.createObjectURL(image)}
               alt={image.name}
             />
+          </div>
+        ) : (
+          <div {...getRootProps({ style })}>
+            <input
+              {...getInputProps()}
+            />
+            <Typography>
+              Drag and drop an image.
+            </Typography>
           </div>
         )
       }

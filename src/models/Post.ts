@@ -6,7 +6,12 @@ interface Post {
   text: string
   createdAt: Date
   feeling?: string
-  picture?: string
+  image?: Image
+}
+
+type Image = {
+  public_id: string
+  secure_url: string
 }
 
 export default Post

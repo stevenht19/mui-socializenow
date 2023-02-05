@@ -1,17 +1,17 @@
 import { useFormContext } from 'react-hook-form'
 import { InputBase } from '@mui/material'
-import { Close } from '@mui/icons-material'
 import { useBoolean } from '@/hooks'
-import { Button } from '@/components/atoms/AbsoluteButton'
 import { Tabs } from '../components/Tabs'
 import { User } from '../components/User'
 import { Dropzone } from '../components/Dropzone'
 import { FormBox } from '../components/Box'
-import PostButton from '../components/PostButton'
 
-export const CreatePostView = () => {
+export const CreatePostView = ({ children }: {
+  children: React.ReactNode
+}) => {
   const { register, watch } = useFormContext()
   const image: File = watch('picture')
+
   const [isOpen, onOpen, onClose] = useBoolean(image ? true : false)
 
   return (
@@ -35,20 +35,14 @@ export const CreatePostView = () => {
       />
       {
         isOpen && (
-          <Dropzone image={image}>
-            <Button
-              onClick={!image ? onClose : () => {}}
-              sx={{
-                right: 5,
-                top: 5
-              }}>
-              <Close />
-            </Button>
-          </Dropzone>
+          <Dropzone 
+            image={image} 
+            onClose={onClose} 
+          />
         )
       }
       <Tabs onOpen={onOpen} />
-      <PostButton />
+      {children}
     </FormBox>
   )
 }

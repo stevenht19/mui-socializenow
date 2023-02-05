@@ -3,7 +3,7 @@ import { Post } from '@/models'
 export type CreatePost = {
   author: string
   text: Post['text']
-  picture?: File
+  image?: File
   feeling?: Post['feeling']
 }
 

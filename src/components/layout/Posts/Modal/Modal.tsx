@@ -1,15 +1,28 @@
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
+import { useAccount, useBoolean, usePosts } from '@/hooks'
 import Modal, { ModalProps } from '@/components/atoms/Modal'
 import { TabPanelProvider } from '@/context/TabPanel'
 import { FeelingsView } from './views/FeelingsView'
 import { CreatePostView } from './views/CreatePostView'
+import { PostButton } from './components/PostButton'
 import { CreatePost } from './types'
+import { createPost } from './services/createPost'
 
 const PostModal = ({ open, onClose }: ModalProps) => {
   const methods = useForm<CreatePost>({ mode: 'onBlur' })
-
-  const onSubmit: SubmitHandler<CreatePost> = (data) => {
-    console.log(data)
+  const { account } = useAccount()
+  const { addPost } = usePosts()
+  const [isLoading, setIsLoading, stopLoading] = useBoolean()
+  
+  const onSubmit: SubmitHandler<CreatePost> = async (data) => {
+    try {
+      setIsLoading()
+      const post = await createPost(data, account!._id)
+      addPost(post, account!)
+      onClose()
+    } catch (_) {
+      stopLoading()
+    }
   }
 
   return (
@@ -21,7 +34,11 @@ const PostModal = ({ open, onClose }: ModalProps) => {
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)}>
           <TabPanelProvider
-            firstView={<CreatePostView />}
+            firstView={
+              <CreatePostView>
+                <PostButton isLoading={isLoading} />
+              </CreatePostView>
+            }
             secondView={<FeelingsView />}
           />
         </form>

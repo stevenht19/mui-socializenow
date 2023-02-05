@@ -1,10 +1,10 @@
 import { useFormContext } from 'react-hook-form'
 import { useTabPanel } from '@/context/hooks'
-import { Grid, Typography, Box, styled } from '@mui/material'
 import { grey } from '@mui/material/colors'
+import { Grid, Typography, Box, styled } from '@mui/material'
+import { FormBox } from '../components/Box'
 import { emojis } from '../emojis'
 import { Emoji } from '../types'
-import { FormBox } from '../components/Box'
 
 const StyledBox = styled(Box)`
   display: flex;

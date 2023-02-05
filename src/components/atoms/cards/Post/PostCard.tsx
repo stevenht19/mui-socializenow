@@ -16,10 +16,12 @@ const ActionsWithModal = withAuthModal(Actions)
 
 dayjs.extend(relativeTime)
 
-const PostCard = ({ author, text, createdAt }: Post) => {
+const PostCard = ({ author, text, feeling, image, createdAt }: Post) => {
   const { username, color } = author
 
   const date = dayjs(createdAt).fromNow()
+
+  const feelingMessage = feeling ? feeling.split('-') : null
 
   const handleLike = () => { }
 
@@ -29,6 +31,18 @@ const PostCard = ({ author, text, createdAt }: Post) => {
         title={
           <>
             {author.username + ' '}
+            {
+              feelingMessage && (
+                <Typography 
+                  color='text.secondary' 
+                  component='span'
+                  variant='body2'
+                >
+                  - is {feelingMessage[0]} feeling 
+                  {' ' + feelingMessage[1]}
+                </Typography>    
+              )
+            }
           </>
         }
         subheader={date}
@@ -47,7 +61,7 @@ const PostCard = ({ author, text, createdAt }: Post) => {
       <CardMedia
         component='img'
         height='300'
-        image='https://cdn.pixabay.com/photo/2012/08/27/14/19/mountains-55067__340.png'
+        image={image?.secure_url || 'https://cdn.pixabay.com/photo/2012/08/27/14/19/mountains-55067__340.png'}
       />
       <CardContent>
         <Typography
