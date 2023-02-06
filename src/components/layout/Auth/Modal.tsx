@@ -14,8 +14,10 @@ const AuthModal: React.FC<ModalProps> = ({
       onClose={onClose}
     >
       <TabPanelProvider
-        firstView={<Login onClose={onClose} />}
-        secondView={<Signup onClose={onClose} />}
+        views={[
+          <Login onClose={onClose} />, 
+          <Signup onClose={onClose} />
+        ]}
       >
         <Tab label='Login' />
         <Tab label='Register' />

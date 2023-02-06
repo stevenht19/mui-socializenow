@@ -1,20 +1,14 @@
 interface FakeAccount {
+  id: number
+  firstName: string
+  lastName: string
   email: string
-  login: {
-    uuid: string
-    username: string
-  }
-  name: {
-    first: string
-    last: string
-  }
-  picture: {
-    thumbnail: string
-  }
+  username: string
+  image: string
 }
 
 export type FakeAccountResponse = {
-  results: FakeAccount[]
+  users: FakeAccount[]
 }
 
 export default FakeAccount

@@ -5,81 +5,12 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
-  Typography
 } from '@mui/material'
-import withAuthModal, { Props } from '@/hocs/withAuthModal'
+import { withAuthModal } from '@/hocs'
 import { Home, People } from '@mui/icons-material'
-import { Spinner } from '@/components/atoms/Spinner'
-import { Button } from '@/components/atoms/Button'
-import { Flex } from '@/components/atoms/Flex'
-import { Accounts } from './Accounts'
-import { fakeFollowings } from './fakeUsers'
-import { useFakeAccounts } from './hooks'
-
-const text = 'Log in for following creators, like and comment posts.'
-
-const FollowingAccounts = ({ user, isLoading, onOpen }: Props) => {
-
-  if (isLoading) return (
-    <Box 
-      mt={1.3} 
-      height='8rem'
-    />
-  )
-
-  if (!user) return (
-    <Box 
-      display='flex'
-      minHeight='8rem'
-      flexDirection='column' 
-      mt={1.3} 
-      gap={.5} 
-      pl={2}
-    >
-      <Typography
-        component='p'
-        variant='body2'
-      >
-        {text}
-      </Typography>
-      <Button
-        fullWidth
-        onClick={onOpen}
-        sx={{ mt: 2 }}
-      >
-        Log in
-      </Button>
-    </Box>
-  )
-
-  return (
-    <Accounts
-      accounts={fakeFollowings}
-      subheader='Following Accounts'
-    />
-  )
-}
-
-const SuggestedAccounts = () => {
-  const [accounts] = useFakeAccounts()
-
-  return (
-    <>
-      {
-        accounts.length ? (
-          <Accounts
-            subheader='Suggested Accounts'
-            accounts={accounts}
-          />
-        ) : (
-          <Flex justifyContent={'center'} pt={3}>
-            <Spinner />
-          </Flex>
-        )
-      }
-    </>
-  )
-}
+import { Link } from './components/Link'
+import { ListOfAccounts } from './components/ListOfAccounts'
+import { FollowingAccounts } from './components/FollowingAccounts'
 
 const FollowingAccountsWithModal = withAuthModal(FollowingAccounts)
 
@@ -90,7 +21,7 @@ const Sidebar = () => {
       sx={{
         width: {
           xs: '3.7rem',
-          md: '19rem'
+          md: '18.5rem'
         },
         borderRight: (theme) => ({
           xs: '1px solid ' + theme.palette.divider,
@@ -107,12 +38,12 @@ const Sidebar = () => {
       >
         <List>
           <ListItem disablePadding>
-            <ListItemButton>
+            <Link to='/'>
               <ListItemIcon>
                 <Home />
               </ListItemIcon>
               <ListItemText primary='Feed' />
-            </ListItemButton>
+            </Link>
           </ListItem>
           <ListItem disablePadding>
             <ListItemButton>
@@ -124,7 +55,7 @@ const Sidebar = () => {
           </ListItem>
         </List>
         <FollowingAccountsWithModal />
-        <SuggestedAccounts />
+        <ListOfAccounts subheader='Suggested Accounts' />
       </Box>
     </Box>
   )

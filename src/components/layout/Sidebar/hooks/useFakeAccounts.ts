@@ -1,16 +1,16 @@
 import { useEffect, useState } from 'react'
 import FakeAccount, { FakeAccountResponse } from '@/models/FakeAccount'
 
-const API = 'https://randomuser.me/api/?results=4'
+const API = 'https://dummyjson.com/users'
 
-const useFakeAccounts = () => {
+const useFakeAccounts = (q?: string) => {
   const [fakeAccounts, setFakeAccounts] = useState<FakeAccount[]>([])
 
   useEffect(() => {
-    fetch(API)
+    fetch(API + (q || '?limit=4'))
       .then((res) => res.json())
       .then((data: FakeAccountResponse) => { 
-        setFakeAccounts(data.results) 
+        setFakeAccounts(data.users) 
       })
   }, [])
 

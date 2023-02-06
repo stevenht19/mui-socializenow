@@ -7,20 +7,16 @@ type Props = ButtonProps & {
 
 export const Button: React.FC<Props> = ({ 
   onClick, 
-  children, 
-  startIcon, 
+  children,  
   variant,
-  fullWidth,
-  sx
+  ...rest
 }) => {
   return (
     <MuiButton
       variant={variant || 'contained'}
       onClick={onClick}
       disableFocusRipple
-      {...(startIcon && { startIcon })}
-      {...(sx && { sx })}
-      {...(fullWidth && { fullWidth })}
+      {...rest}
     >
       {children}
     </MuiButton>

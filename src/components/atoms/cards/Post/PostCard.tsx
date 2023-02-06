@@ -18,12 +18,11 @@ dayjs.extend(relativeTime)
 
 const PostCard = ({ author, text, feeling, image, createdAt }: Post) => {
   const { username, color } = author
-
   const date = dayjs(createdAt).fromNow()
 
   const feelingMessage = feeling ? feeling.split('-') : null
 
-  const handleLike = () => { }
+  const handleLike = () => {}
 
   return (
     <Card>
@@ -33,14 +32,14 @@ const PostCard = ({ author, text, feeling, image, createdAt }: Post) => {
             {author.username + ' '}
             {
               feelingMessage && (
-                <Typography 
-                  color='text.secondary' 
+                <Typography
+                  color='text.secondary'
                   component='span'
                   variant='body2'
                 >
-                  - is {feelingMessage[0]} feeling 
+                  - is {feelingMessage[0]} feeling
                   {' ' + feelingMessage[1]}
-                </Typography>    
+                </Typography>
               )
             }
           </>
@@ -58,11 +57,15 @@ const PostCard = ({ author, text, feeling, image, createdAt }: Post) => {
           </Avatar>
         }
       />
-      <CardMedia
-        component='img'
-        height='300'
-        image={image?.secure_url || 'https://cdn.pixabay.com/photo/2012/08/27/14/19/mountains-55067__340.png'}
-      />
+      {
+        image?.secure_url && (
+          <CardMedia
+            component='img'
+            height='350'
+            image={image?.secure_url}
+          />
+        )
+      }
       <CardContent>
         <Typography
           component='p'

@@ -43,7 +43,7 @@ export const Accounts: React.FC<Props> = ({
           {
             accounts.map((props) => (
               <AccountItem 
-                key={props.login.uuid} 
+                key={props.id} 
                 {...props} 
               />
             ))

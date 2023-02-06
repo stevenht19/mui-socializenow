@@ -5,14 +5,14 @@ import { TabPanelProvider } from '@/context/TabPanel'
 import { FeelingsView } from './views/FeelingsView'
 import { CreatePostView } from './views/CreatePostView'
 import { PostButton } from './components/PostButton'
-import { CreatePost } from './types'
 import { createPost } from './services/createPost'
+import { CreatePost } from './types'
 
 const PostModal = ({ open, onClose }: ModalProps) => {
   const methods = useForm<CreatePost>({ mode: 'onBlur' })
   const { account } = useAccount()
-  const { addPost } = usePosts()
   const [isLoading, setIsLoading, stopLoading] = useBoolean()
+  const { addPost } = usePosts()
   
   const onSubmit: SubmitHandler<CreatePost> = async (data) => {
     try {
@@ -34,12 +34,12 @@ const PostModal = ({ open, onClose }: ModalProps) => {
       <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)}>
           <TabPanelProvider
-            firstView={
+            views={[
               <CreatePostView>
                 <PostButton isLoading={isLoading} />
-              </CreatePostView>
-            }
-            secondView={<FeelingsView />}
+              </CreatePostView>,
+              <FeelingsView />
+            ]}
           />
         </form>
       </FormProvider>

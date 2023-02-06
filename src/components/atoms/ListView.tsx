@@ -15,7 +15,7 @@ export function ListView<Item>({
     <Stack 
       spacing={4}
       pb={4}
-      px={4}
+      px={5}
     >
       {
         Boolean(items.length) ? (

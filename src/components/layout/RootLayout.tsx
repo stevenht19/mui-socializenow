@@ -3,7 +3,7 @@ import { Box, Container } from '@mui/material'
 import { Sidebar } from '@/components/layout/Sidebar'
 import { Appbar } from '@/components/layout/Appbar'
 
-export default function AppLayout({ children }: {
+export default function RootLayout({ children }: {
   children: React.ReactNode
 }) {
   return (
@@ -18,9 +18,9 @@ export default function AppLayout({ children }: {
         <Sidebar />
         <Box
           mx='auto'
+          minHeight='100%'
           flex={1}
           pt={3}
-          minHeight='100vh'
         >
           {children}
         </Box>

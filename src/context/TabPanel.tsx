@@ -1,5 +1,5 @@
 import { createContext } from 'react'
-import { Tabs } from '@mui/material'
+import { Tabs, Box } from '@mui/material'
 import { TabPanel } from '@/components/atoms/TabPanel'
 import { useTabs } from '@/context/hooks'
 
@@ -11,23 +11,21 @@ type TabPanelContextType = {
 
 export const TabPanelContext = createContext<TabPanelContextType>({
   value: 0,
-  onBack() {},
-  onChange() {},
+  onBack() { },
+  onChange() { },
 })
 
 type Props = {
-  firstView: React.ReactNode
-  secondView: React.ReactNode
   children?: React.ReactNode
+  views?: React.ReactNode[]
 }
 
-export function TabPanelProvider({ 
-  firstView, 
-  secondView,
+export function TabPanelProvider({
+  views,
   children
 }: Props) {
   const { value, onChange, onBack } = useTabs()
-  
+
   return (
     <TabPanelContext.Provider value={{
       value,
@@ -36,27 +34,28 @@ export function TabPanelProvider({
     }}>
       {
         (children) ? (
-          <Tabs
-            value={value} 
-            onChange={onChange}
-            variant='fullWidth'
-          >
-            {children}
-          </Tabs>
+          <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+            <Tabs
+              value={value}
+              onChange={onChange}
+              variant='fullWidth'
+            >
+              {children}
+            </Tabs>
+          </Box>
         ) : null
       }
-      <TabPanel
-        value={value}
-        index={0}
-      >
-        {firstView}
-      </TabPanel>
-      <TabPanel
-        value={value}
-        index={1}
-      >
-        {secondView}
-      </TabPanel>
+      {
+        views?.map((view, i) => (
+          <TabPanel
+            key={i}
+            value={value}
+            index={i}
+          >
+            {view}
+          </TabPanel>
+        ))
+      }
     </TabPanelContext.Provider>
   )
 }
