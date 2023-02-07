@@ -5,6 +5,13 @@ interface FakeAccount {
   email: string
   username: string
   image: string
+  phone: string
+  address: Address
+}
+
+type Address = {
+  state: string
+  city: string
 }
 
 export type FakeAccountResponse = {

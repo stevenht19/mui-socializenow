@@ -1,9 +1,17 @@
 import { Button } from '@/components/atoms/Button'
-import { FakeAccount } from '@/models'
 import { Avatar, Box, Typography } from '@mui/material'
 import { Statistics } from './ProfileStatistics'
+import { ProfileCardSkeleton } from './ProfileCardSkeleton'
+import { useFakeProfile } from '../hooks/useFakeProfile'
+import { Props } from '../types'
 
-export const ProfileCard = ({ username, firstName, lastName, image }: FakeAccount) => {
+export const ProfileCard = ({ params }: Props) => {
+  const { profile, isLoading } = useFakeProfile(params.id!)
+
+  if (isLoading || !profile) return <ProfileCardSkeleton />
+
+  const { username, firstName, lastName, image } = profile
+
   return (
     <Box px={4} minHeight='13rem'>
       <Box display='flex' gap={2.5} px={2}>

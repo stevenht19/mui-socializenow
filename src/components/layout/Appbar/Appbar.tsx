@@ -2,6 +2,7 @@ import { lazy, Suspense } from 'react'
 import { AppBar, Toolbar, Container } from '@mui/material'
 import { useBoolean } from '@/hooks'
 import { withAuthModal } from '@/hocs'
+import { Backdrop } from '@/components/atoms/Backdrop'
 import { AppbarButtons } from './AppbarButtons'
 
 const PostModal = lazy(() => import('@/components/layout/Posts/Modal/Modal'))
@@ -15,7 +16,7 @@ const Buttons = () => {
     <div>
       {
         isOpen && (
-          <Suspense fallback={null}>
+          <Suspense fallback={<Backdrop />}>
             <PostModal
               open={isOpen}
               onClose={onClose}

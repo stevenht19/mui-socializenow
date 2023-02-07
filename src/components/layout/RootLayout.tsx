@@ -12,7 +12,8 @@ export default function RootLayout({ children }: {
       <Container
         disableGutters
         sx={{ 
-          display: 'flex', 
+          display: 'flex',
+          gap: 2
         }}
       >
         <Sidebar />
@@ -21,6 +22,7 @@ export default function RootLayout({ children }: {
           minHeight='100%'
           flex={1}
           pt={3}
+          px={4}
         >
           {children}
         </Box>

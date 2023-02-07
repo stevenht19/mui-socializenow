@@ -1,6 +1,7 @@
 import { Fragment, Suspense, lazy } from 'react'
 import { useAccount, useBoolean } from '@/hooks'
 import { User } from '@/models'
+import { Backdrop } from '@/components/atoms/Backdrop'
 
 export type Props = {
   user: User | null
@@ -33,7 +34,7 @@ const withAuthModal = (Component: React.FC<Props>) => {
       <Fragment>
         {
           isOpen && (
-            <Suspense fallback={null}>
+            <Suspense fallback={<Backdrop />}>
               <Modal
                 open={isOpen}
                 onClose={onClose}

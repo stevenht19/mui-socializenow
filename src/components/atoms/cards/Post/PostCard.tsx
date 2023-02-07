@@ -16,13 +16,24 @@ const ActionsWithModal = withAuthModal(Actions)
 
 dayjs.extend(relativeTime)
 
-const PostCard = ({ author, text, feeling, image, createdAt }: Post) => {
-  const { username, color } = author
+type Props = Post & {
+  disableActions?: boolean
+}
+
+const PostCard = ({
+  author,
+  text,
+  feeling,
+  image,
+  createdAt,
+  disableActions
+}: Props) => {
+  const { username, color, picture } = author
   const date = dayjs(createdAt).fromNow()
 
   const feelingMessage = feeling ? feeling.split('-') : null
 
-  const handleLike = () => {}
+  const handleLike = () => { }
 
   return (
     <Card>
@@ -49,12 +60,19 @@ const PostCard = ({ author, text, feeling, image, createdAt }: Post) => {
           fontWeight: 500
         }}
         avatar={
-          <Avatar
-            sx={{ bgcolor: color }}
-            aria-label='post'
-          >
-            {username[0].toUpperCase()}
-          </Avatar>
+          picture ? (
+            <Avatar
+              aria-label='post'
+              src={picture}
+            />
+          ) : (
+            <Avatar
+              sx={{ bgcolor: color }}
+              aria-label='post'
+            >
+              {username[0].toUpperCase()}
+            </Avatar>
+          )
         }
       />
       {
@@ -77,7 +95,11 @@ const PostCard = ({ author, text, feeling, image, createdAt }: Post) => {
           {text}
         </Typography>
       </CardContent>
-      <ActionsWithModal action={handleLike} />
+      {
+        !disableActions ? (
+          <ActionsWithModal action={handleLike} />
+        ) : null
+      }
     </Card>
   )
 }
