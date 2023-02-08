@@ -2,12 +2,12 @@ import {
   Box,
   List,
   ListItem,
-  ListItemButton,
   ListItemIcon,
   ListItemText,
 } from '@mui/material'
 import { withAuthModal } from '@/hocs'
 import { Home, People } from '@mui/icons-material'
+import { Routes } from '@/routes'
 import { Link } from './components/Link'
 import { ListOfAccounts } from './components/ListOfAccounts'
 import { FollowingAccounts } from './components/FollowingAccounts'
@@ -38,7 +38,7 @@ const Sidebar = () => {
       >
         <List>
           <ListItem disablePadding>
-            <Link to='/'>
+            <Link to={Routes.MAIN}>
               <ListItemIcon>
                 <Home />
               </ListItemIcon>
@@ -46,12 +46,12 @@ const Sidebar = () => {
             </Link>
           </ListItem>
           <ListItem disablePadding>
-            <ListItemButton>
+            <Link to={Routes.FOLLOWING}>
               <ListItemIcon>
                 <People />
               </ListItemIcon>
               <ListItemText primary='Following' />
-            </ListItemButton>
+            </Link>
           </ListItem>
         </List>
         <FollowingAccountsWithModal />

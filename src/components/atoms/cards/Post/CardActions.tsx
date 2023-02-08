@@ -1,13 +1,17 @@
 import { useBoolean } from '@/hooks'
-import { Props } from '@/hocs/withAuthModal'
 import { Flex } from '@/components/atoms/Flex'
 import { Snackbar } from '@/components/atoms/Snackbar'
-import { ChatBubbleOutline, FavoriteBorder, FavoriteOutlined, Share } from '@mui/icons-material'
-import { CardActions, Checkbox, Collapse, IconButton, Typography } from '@mui/material'
+import { ChatBubbleOutline, Share } from '@mui/icons-material'
+import { CardActions, Collapse, IconButton, Typography } from '@mui/material'
+import { Comments } from './components/Comments'
 
-export const Actions: React.FC<Props> = ({ user, verifyUser }) => {
+type Props = {
+  children: React.ReactNode
+}
+
+export const Actions = ({ children }: Props) => {
   const [snackbarOpen, showSnackbar, hideSnackbar] = useBoolean()
-  const [commentsOpen, ...rest] = useBoolean() 
+  const [commentsOpen, ...rest] = useBoolean()
 
   const onToggle = () => rest[2]()
 
@@ -19,33 +23,18 @@ export const Actions: React.FC<Props> = ({ user, verifyUser }) => {
       message='Link copied to clipboard'
     />
     <CardActions>
+      {children}
       <Flex>
-        {
-          user ? (
-            <Checkbox
-              icon={<FavoriteBorder />}
-              checkedIcon={<FavoriteOutlined />}
-            />
-          ) : (
-            <IconButton onClick={verifyUser}>
-              <FavoriteBorder />
-            </IconButton>
-          )
-        }
-        <Typography component='span' variant='body2'>
-          0
-        </Typography>
-      </Flex>
-      <Flex>
-        <IconButton onClick={onToggle}>
+        <IconButton onClick={onToggle} aria-labelledby='share'>
           <ChatBubbleOutline />
         </IconButton>
-        <Typography component='span' variant='body2'>
+        <Typography id='share' component='span' variant='body2'>
           0
         </Typography>
       </Flex>
       <IconButton
         onClick={showSnackbar}
+        aria-label='share post'
         sx={{
           ml: 'auto'
         }}
@@ -54,7 +43,7 @@ export const Actions: React.FC<Props> = ({ user, verifyUser }) => {
       </IconButton>
     </CardActions>
     <Collapse in={commentsOpen}>
-      List Of Comments
+      <Comments />
     </Collapse>
   </>
 }

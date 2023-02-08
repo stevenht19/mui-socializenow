@@ -1,7 +1,7 @@
 import { Divider, List, ListSubheader } from '@mui/material'
 import { Flex } from '@/components/atoms/Flex'
 import { Spinner } from '@/components/atoms/Spinner'
-import { useFakeAccounts } from '../hooks'
+import { useFakeUsers } from '@/hooks'
 import { AccountItem } from './AccountItem'
 
 type Props = {
@@ -11,13 +11,13 @@ type Props = {
 }
 
 export const ListOfAccounts = ({ subheader, q, disableSpinner }: Props) => {
-  const [accounts] = useFakeAccounts(q)
+  const [accounts] = useFakeUsers(q)
 
-  if (disableSpinner && !accounts.length) {
+  if (disableSpinner && !accounts?.length) {
     return null
   }
 
-  if (!accounts.length) {
+  if (!accounts?.length) {
     return (
       <Flex justifyContent={'center'} pt={3}>
         <Spinner />

@@ -1,22 +1,34 @@
 import { Route } from 'wouter'
+import { lazy, Suspense } from 'react'
 import { AccountProvider, PostProvider } from '@/context'
 import { RootLayout } from '@/components/layout'
 import Home from '@/pages/Home'
-import Profile from '@/pages/Profile/Profile'
+
+const Following = lazy(() => import('@/pages/Following'))
+const Profile = lazy(() => import('@/pages/Profile'))
 
 function App() {
   return (
     <AccountProvider>
-      <RootLayout>
-        <PostProvider>
+      <PostProvider>
+        <RootLayout>
           <Route path='/'>
             <Home />
           </Route>
-          <Route path='/users/:id'>
-            {(params) => <Profile params={params} />}
+          <Route path='/following'>
+            <Suspense fallback={null}>
+              <Following />
+            </Suspense>
           </Route>
-        </PostProvider>
-      </RootLayout>
+          <Route path='/fakeusers/:id'>
+            {(params) => (
+              <Suspense fallback={null}>
+                <Profile params={params} />
+              </Suspense>
+            )}
+          </Route>
+        </RootLayout>
+      </PostProvider>
     </AccountProvider>
   )
 }

@@ -1,4 +1,5 @@
 import { FakeAccount } from '@/models'
+import { Routes } from '@/routes'
 import {
   Avatar,
   ListItem,
@@ -24,7 +25,7 @@ export const AccountItem = ({
         }
       }}
     >
-      <Link to={`/users/${id}`} disablePadding>
+      <Link to={`${Routes.FAKE_USER}/${id}`} disablePadding>
         <ListItemAvatar>
           <Avatar
             src={image}

@@ -6,7 +6,7 @@ type Response = {
 }
 
 export const getPosts = async (): Promise<Response['posts']> => {
-  return fetch('http://localhost:4000/posts')
+  return fetch(`${import.meta.env.VITE_MONGO_API_URL}/posts`)
     .then(res => res.json())
     .then((res: Response) => res.posts)
 }

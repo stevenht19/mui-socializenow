@@ -12,9 +12,9 @@ type Props = {
 export const Form: React.FC<Props> = ({ 
   subtitle,
   textButton,
-  onSubmit,
   isSubmitting,
-  children
+  children,
+  onSubmit,
 }) => {
   return (
     <Box component='form' p={3.5} onSubmit={onSubmit}>

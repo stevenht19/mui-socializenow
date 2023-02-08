@@ -6,6 +6,6 @@ interface Account {
   picture?: string
 }
 
-export type User = Omit<Account, 'id' | 'password'>
+export type User = Omit<Account, '_id' | 'password'>
 
 export default Account

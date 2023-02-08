@@ -10,12 +10,14 @@ export const PostsView = ({ params }: Props) => {
   const { id } = params
 
   const { profile } = useFakeProfile(id!)
-  const { posts } = useFakePosts(id!, profile)
+  const { posts, isLoading } = useFakePosts(id!, profile)
 
   return (
     <Box pt={4}>
       <ListView 
         items={posts}
+        isLoading={isLoading || profile === undefined}
+        customMessage={`There's no posts yet.`}
         skeletonRender={(key) => (
           <PostSkeleton key={key} />
         )}

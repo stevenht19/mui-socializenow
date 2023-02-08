@@ -1,8 +1,8 @@
 import { Button } from '@/components/atoms/Button'
 import { Avatar, Box, Typography } from '@mui/material'
+import { useFakeProfile } from '../hooks/useFakeProfile'
 import { Statistics } from './ProfileStatistics'
 import { ProfileCardSkeleton } from './ProfileCardSkeleton'
-import { useFakeProfile } from '../hooks/useFakeProfile'
 import { Props } from '../types'
 
 export const ProfileCard = ({ params }: Props) => {

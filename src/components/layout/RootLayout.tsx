@@ -18,11 +18,11 @@ export default function RootLayout({ children }: {
       >
         <Sidebar />
         <Box
-          mx='auto'
-          minHeight='100%'
           flex={1}
           pt={3}
           px={4}
+          mx='auto'
+          minHeight='100%'
         >
           {children}
         </Box>

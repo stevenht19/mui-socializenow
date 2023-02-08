@@ -11,7 +11,7 @@ type Response = {
 }
 
 export const getAccount = async (token: string) => {
-  const response = await fetch('http://localhost:4000/auth', {
+  const response = await fetch(`${import.meta.env.VITE_MONGO_API_URL}/auth`, {
     method: 'GET',
     headers: {
       'authorization': `Bearer ${token}`

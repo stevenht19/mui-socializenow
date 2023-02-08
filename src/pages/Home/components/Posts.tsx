@@ -1,14 +1,15 @@
-import { usePosts } from '@/hooks'
 import { PostCard } from '@/components/atoms/cards/Post'
 import { PostSkeleton } from '@/components/atoms/skeletons/Post'
 import { ListView } from '@/components/atoms/ListView'
+import { usePosts } from '@/hooks'
 
 export const Posts = () => {
-  const { posts } = usePosts()
+  const { posts, isLoading } = usePosts()
 
   return (
-    <ListView 
-      items={posts}
+    <ListView
+      isLoading={isLoading}
+      items={posts ?? []}
       renderItem={(props) => (
         <PostCard 
           key={props._id} 

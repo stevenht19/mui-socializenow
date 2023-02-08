@@ -6,6 +6,7 @@ interface Post {
   text: string
   createdAt: Date
   feeling?: string
+  likes?: string[]
   image?: Image
 }
 

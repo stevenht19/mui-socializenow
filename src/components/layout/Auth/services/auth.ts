@@ -1,7 +1,7 @@
 import { Credentials, Response, ErrorResponse } from './types'
 
 const handleAuth = async (credentials: Credentials, path: string): Promise<Response | ErrorResponse> => {
-  const response = await fetch(`${import.meta.env.VITE_API_URL}/auth${path}`, {
+  const response = await fetch(`${import.meta.env.VITE_MONGO_API_URL}/auth${path}`, {
     method: 'POST',
     headers: {
       'Accept': 'application/json',
@@ -21,11 +21,11 @@ export const getUser = async (credentials: Credentials, path: string) => {
       throw new Error(data.error)
     }
 
-    const { token, user } = data
-
+    const { user, token } = data
+    
     localStorage.setItem('mui-social-app', token)
 
-    return user    
+    return user
   } catch (error) {
     if (error instanceof Error)
     throw new Error(error.message)

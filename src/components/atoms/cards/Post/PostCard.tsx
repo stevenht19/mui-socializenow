@@ -1,8 +1,7 @@
 import dayjs from 'dayjs'
 import relativeTime from 'dayjs/plugin/relativeTime'
+import { Fragment } from 'react'
 import { Post } from '@/models'
-import { withAuthModal } from '@/hocs'
-import { Actions } from './CardActions'
 import {
   Avatar,
   Card,
@@ -11,8 +10,8 @@ import {
   CardMedia,
   Typography,
 } from '@mui/material'
-
-const ActionsWithModal = withAuthModal(Actions)
+import { Actions } from './CardActions'
+import { Likes } from './components/Likes'
 
 dayjs.extend(relativeTime)
 
@@ -20,26 +19,25 @@ type Props = Post & {
   disableActions?: boolean
 }
 
-const PostCard = ({
-  author,
-  text,
-  feeling,
-  image,
-  createdAt,
-  disableActions
-}: Props) => {
+const PostCard = (props: Props) => {
+  const {
+    author,
+    text,
+    feeling,
+    image,
+    createdAt,
+    disableActions
+  } = props
+  console.log('aaa')
   const { username, color, picture } = author
-  const date = dayjs(createdAt).fromNow()
-
   const feelingMessage = feeling ? feeling.split('-') : null
-
-  const handleLike = () => { }
+  const date = dayjs(createdAt).fromNow()
 
   return (
     <Card>
       <CardHeader
         title={
-          <>
+          <Fragment>
             {author.username + ' '}
             {
               feelingMessage && (
@@ -53,7 +51,7 @@ const PostCard = ({
                 </Typography>
               )
             }
-          </>
+          </Fragment>
         }
         subheader={date}
         titleTypographyProps={{
@@ -81,6 +79,7 @@ const PostCard = ({
             component='img'
             height='350'
             image={image?.secure_url}
+            alt={`${username}-post-image`}
           />
         )
       }
@@ -96,9 +95,13 @@ const PostCard = ({
         </Typography>
       </CardContent>
       {
-        !disableActions ? (
-          <ActionsWithModal action={handleLike} />
-        ) : null
+        !disableActions && (
+          <Actions>
+            <Likes
+              {...props}
+            />
+          </Actions>
+        )
       }
     </Card>
   )

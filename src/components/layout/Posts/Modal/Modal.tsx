@@ -13,7 +13,7 @@ const PostModal = ({ open, onClose }: ModalProps) => {
   const { account } = useAccount()
   const [isLoading, setIsLoading, stopLoading] = useBoolean()
   const { addPost } = usePosts()
-  
+
   const onSubmit: SubmitHandler<CreatePost> = async (data) => {
     try {
       setIsLoading()

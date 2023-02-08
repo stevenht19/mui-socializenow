@@ -21,7 +21,7 @@ export const LikesView = ({ params }: Props) => {
         fontWeight={700}
         lineHeight={1}
       >
-        The user's liked videos are private
+        The user's liked posts are private
       </Typography>
       <Typography 
         variant='body1' 

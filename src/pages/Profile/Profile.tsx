@@ -1,5 +1,5 @@
-import { TabPanelProvider } from '@/context/TabPanel'
 import { Tab } from '@mui/material'
+import { TabPanelProvider } from '@/context/TabPanel'
 import { ProfileCard } from './components/ProfileCard'
 import { PostsView } from './views/PostsView'
 import { AboutView } from './views/AboutView'

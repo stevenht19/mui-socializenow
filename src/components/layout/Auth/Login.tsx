@@ -11,9 +11,9 @@ type Inputs = {
 }
 
 export const Login = ({ onClose }: Props) => {
+  const [isLoading, setIsLoading, stopLoading] = useBoolean()
   const { logIn } = useAccount()
   const { register, handleSubmit, formState: { errors } } = useForm<Inputs>()
-  const [isLoading, setIsLoading, stopLoading] = useBoolean()
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     try {
