@@ -15,6 +15,11 @@ export const Actions = ({ children }: Props) => {
 
   const onToggle = () => rest[2]()
 
+  const handleShare = () => {
+    navigator.clipboard.writeText('post link')
+    showSnackbar()
+  }
+
   return <>
     <Snackbar
       open={snackbarOpen}
@@ -33,7 +38,7 @@ export const Actions = ({ children }: Props) => {
         </Typography>
       </Flex>
       <IconButton
-        onClick={showSnackbar}
+        onClick={handleShare}
         aria-label='share post'
         sx={{
           ml: 'auto'

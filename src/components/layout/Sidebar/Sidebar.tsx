@@ -4,6 +4,7 @@ import {
   ListItem,
   ListItemIcon,
   ListItemText,
+  styled
 } from '@mui/material'
 import { withAuthModal } from '@/hocs'
 import { Home, People } from '@mui/icons-material'
@@ -14,28 +15,32 @@ import { FollowingAccounts } from './components/FollowingAccounts'
 
 const FollowingAccountsWithModal = withAuthModal(FollowingAccounts)
 
+const StyledSidebar = styled(Box)(({ theme }) => ({
+  [theme.breakpoints.up('xs')]: {
+    width: '3.8rem',
+    flex: '0 0 3.8rem',
+    borderRight: `1px solid ${theme.palette.divider}`,
+  },
+  [theme.breakpoints.up('md')]: {
+    width: '18.5rem',
+    flex: '0 0 18.5rem',
+    borderRight: 'none'
+  }
+}))
+
+const Content = styled(Box)(() => ({
+  position: 'fixed',
+  overflowY: 'auto',
+  overflowX: 'hidden',
+  height: '100%',
+  paddingBottom: '2rem',
+  width: 'inherit'
+}))
+
 const Sidebar = () => {
   return (
-    <Box
-      overflow='hidden'
-      sx={{
-        width: {
-          xs: '3.7rem',
-          md: '18.5rem'
-        },
-        borderRight: (theme) => ({
-          xs: '1px solid ' + theme.palette.divider,
-          md: 'none'
-        })
-      }}
-    >
-      <Box
-        position='fixed'
-        height='100%'
-        width='inherit'
-        overflow={'auto'}
-        pb={8}
-      >
+    <StyledSidebar>
+      <Content>
         <List>
           <ListItem disablePadding>
             <Link to={Routes.MAIN}>
@@ -56,8 +61,8 @@ const Sidebar = () => {
         </List>
         <FollowingAccountsWithModal />
         <ListOfAccounts subheader='Suggested Accounts' />
-      </Box>
-    </Box>
+      </Content>
+    </StyledSidebar>
   )
 }
 

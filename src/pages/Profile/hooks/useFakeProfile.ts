@@ -7,7 +7,7 @@ const fetcher: Fetcher<FakeAccount, string> = (args) => fetch(`${import.meta.env
   .then((res: FakeAccount) => res)
 
 
-export const useFakeProfile = (userId: string) => {
+const useFakeProfile = (userId: string) => {
   const { data, isLoading } = useSWRImmutable(`/users/${userId}`, fetcher)
 
   return {
@@ -15,3 +15,4 @@ export const useFakeProfile = (userId: string) => {
     isLoading
   }
 }
+export default useFakeProfile

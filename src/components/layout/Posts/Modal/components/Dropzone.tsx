@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo  } from 'react'
+import { ModalProps } from '@/components/atoms/Modal'
 import { useFormContext } from 'react-hook-form'
 import { useDropzone } from 'react-dropzone'
 import { Button } from '@/components/atoms/AbsoluteButton'
@@ -34,7 +35,7 @@ const baseStyle = {
 
 type Props = {
   image?: CreatePost['image']
-  onClose: () => void
+  onClose: ModalProps['onClose']
 }
 
 export const Dropzone = ({ image, onClose }: Props) => {
@@ -42,11 +43,11 @@ export const Dropzone = ({ image, onClose }: Props) => {
   const { register, unregister, setValue } = useFormContext()
 
   useEffect(() => {
-    register('picture')
+    register('image')
   }, [register, unregister])
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
-    setValue('picture', acceptedFiles[0], { shouldValidate: true })
+    setValue('image', acceptedFiles[0], { shouldValidate: true })
   }, [setValue])
 
   const {

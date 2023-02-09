@@ -31,7 +31,7 @@ const Buttons = () => {
 const Header = () => {
   return (
     <AppBar
-      position='sticky'
+      position='fixed'
       color='inherit'
       variant='outlined'
       elevation={0}

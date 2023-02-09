@@ -15,7 +15,7 @@ const fetcher: Fetcher<Post[], FetcherParams> = ({ url, user }) => fetch(url)
   .then((res) => res.json())
   .then((res: FakePostResponse) => res.posts.map((res) => postAdapter(res, user)))
 
-export const useFakePosts = (userId: string, user?: FakeAccount) => {
+const useFakePosts = (userId: string, user?: FakeAccount) => {
   const { data, isLoading } = useSWRImmutable(user ? `${API}/${userId}` : null, (url) => fetcher({ url, user: user! }))
 
   return {
@@ -23,3 +23,5 @@ export const useFakePosts = (userId: string, user?: FakeAccount) => {
     isLoading
   }
 }
+
+export default useFakePosts

@@ -2,8 +2,7 @@ import { Box } from '@mui/material'
 import { PostCard } from '@/components/atoms/cards/Post'
 import { ListView } from '@/components/atoms/ListView'
 import { PostSkeleton } from '@/components/atoms/skeletons/Post'
-import { useFakeProfile } from '../hooks/useFakeProfile'
-import { useFakePosts } from '../hooks/useFakePosts'
+import { useFakeProfile, useFakePosts } from '../hooks'
 import { Props } from '../types'
 
 export const PostsView = ({ params }: Props) => {

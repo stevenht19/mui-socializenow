@@ -1,7 +1,8 @@
 import { Fragment } from 'react'
-import { Box, Container } from '@mui/material'
+import { Container, Toolbar } from '@mui/material'
 import { Sidebar } from '@/components/layout/Sidebar'
 import { Appbar } from '@/components/layout/Appbar'
+import { Outlet } from './Outlet'
 
 export default function RootLayout({ children }: {
   children: React.ReactNode
@@ -9,23 +10,17 @@ export default function RootLayout({ children }: {
   return (
     <Fragment>
       <Appbar />
+      <Toolbar />
       <Container
-        disableGutters
-        sx={{ 
+        sx={{
           display: 'flex',
-          gap: 2
         }}
+        disableGutters
       >
         <Sidebar />
-        <Box
-          flex={1}
-          pt={3}
-          px={4}
-          mx='auto'
-          minHeight='100%'
-        >
+        <Outlet>
           {children}
-        </Box>
+        </Outlet>
       </Container>
     </Fragment>
   )

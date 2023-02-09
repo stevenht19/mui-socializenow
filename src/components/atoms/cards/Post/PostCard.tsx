@@ -28,7 +28,7 @@ const PostCard = (props: Props) => {
     createdAt,
     disableActions
   } = props
-  console.log('aaa')
+  
   const { username, color, picture } = author
   const feelingMessage = feeling ? feeling.split('-') : null
   const date = dayjs(createdAt).fromNow()

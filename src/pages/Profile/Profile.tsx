@@ -1,5 +1,6 @@
 import { Tab } from '@mui/material'
 import { TabPanelProvider } from '@/context/TabPanel'
+import { useScroll } from './hooks'
 import { ProfileCard } from './components/ProfileCard'
 import { PostsView } from './views/PostsView'
 import { AboutView } from './views/AboutView'
@@ -7,6 +8,10 @@ import { LikesView } from './views/LikesView'
 import { Props } from './types'
 
 export default function Profile({ params }: Props) {
+  useScroll(() => {
+    return 0
+  }, [params.id])
+
   return (
     <div>
       <ProfileCard params={params} />

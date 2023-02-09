@@ -1,6 +1,6 @@
 import { Button } from '@/components/atoms/Button'
 import { Avatar, Box, Typography } from '@mui/material'
-import { useFakeProfile } from '../hooks/useFakeProfile'
+import { useFakeProfile } from '../hooks'
 import { Statistics } from './ProfileStatistics'
 import { ProfileCardSkeleton } from './ProfileCardSkeleton'
 import { Props } from '../types'
@@ -13,16 +13,19 @@ export const ProfileCard = ({ params }: Props) => {
   const { username, firstName, lastName, image } = profile
 
   return (
-    <Box px={4} minHeight='13rem'>
-      <Box display='flex' gap={2.5} px={2}>
-        <Avatar
-          src={image}
-          sx={{
-            width: 120,
-            height: 120
-          }}
-        />
-        <Box maxWidth='15rem' flex={1}>
+    <Box minHeight='13rem'>
+      <Box display='flex' gap={2.5}>
+        <div>
+          <Avatar
+            src={image}
+            sx={{
+              width: 120,
+              height: 120
+            }}
+            alt={`${profile.username}-avatar`}
+          />
+        </div>
+        <div>
           <Typography component='h2' variant='h5' fontWeight={900}>
             {username}
           </Typography>
@@ -31,12 +34,12 @@ export const ProfileCard = ({ params }: Props) => {
           </Typography>
           <Button
             sx={{ mt: 2.2 }}
-            onClick={() => { }}
             fullWidth
+            size='small'
           >
             Follow
           </Button>
-        </Box>
+        </div>
       </Box>
       <Statistics />
     </Box>

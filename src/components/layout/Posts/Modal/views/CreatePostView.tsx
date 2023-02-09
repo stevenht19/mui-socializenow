@@ -10,7 +10,7 @@ export const CreatePostView = ({ children }: {
   children: React.ReactNode
 }) => {
   const { register, watch } = useFormContext()
-  const image: File = watch('picture')
+  const image: File = watch('image')
 
   const [isOpen, onOpen, onClose] = useBoolean(image ? true : false)
 

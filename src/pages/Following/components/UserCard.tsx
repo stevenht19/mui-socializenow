@@ -29,7 +29,7 @@ export const UserCard: React.FC<FakeAccount> = ({
             justifyContent: 'end',
             alignItems: 'center',
             height: 250,
-            px: 4,
+            px: 3,
             pb: 3,
             borderRadius: 2
           }}
@@ -44,7 +44,7 @@ export const UserCard: React.FC<FakeAccount> = ({
           />
           <Typography 
             component='h2' 
-            fontWeight={700}
+            fontWeight={800}
             mt={1.5}
           >
             {firstName} {lastName}
@@ -53,6 +53,7 @@ export const UserCard: React.FC<FakeAccount> = ({
             variant='body2'
             component='span'
             textAlign='center'
+            color='text.secondary'
           >
             {username}
           </Typography>
@@ -61,7 +62,7 @@ export const UserCard: React.FC<FakeAccount> = ({
             size='small'
             startIcon={<Add />}
             variant='outlined'
-            sx={{ mt: 2 }}
+            sx={{ mt: 2.5 }}
           >
             Follow
           </Button>

@@ -1,7 +1,7 @@
 import { Spinner } from '@/components/atoms/Spinner'
 import { Home, Phone } from '@mui/icons-material'
 import { List, ListItem, ListItemIcon, ListItemText, Typography } from '@mui/material'
-import { useFakeProfile } from '../hooks/useFakeProfile'
+import { useFakeProfile } from '../hooks'
 import { Props } from '../types'
 
 export const AboutView = ({ params }: Props) => {
