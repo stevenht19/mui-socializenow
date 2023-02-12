@@ -1,4 +1,4 @@
-import { LoadingButton } from '@/components/atoms/LoadingButton'
+import { LoadingButton } from '@/components/atoms/buttons/LoadingButton'
 import { useFormContext } from 'react-hook-form'
 
 type Props = {

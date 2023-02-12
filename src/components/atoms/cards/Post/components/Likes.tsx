@@ -1,61 +1,39 @@
-import { Suspense, lazy } from 'react'
+import { mutate } from 'swr'
 import { Post } from '@/models'
-import { useAccount, useBoolean, usePosts } from '@/hooks'
+import { useAccount, useLocation, usePosts } from '@/hooks'
 import { FavoriteBorder, FavoriteOutlined } from '@mui/icons-material'
-import { Checkbox, IconButton, Typography } from '@mui/material'
-import { Flex } from '@/components/atoms/Flex'
-import { likePost } from '../services/likePost'
+import { Checkbox } from '@mui/material'
+import { verifyIfLikeExists } from '../utils'
+import { likePost } from '../services'
+import { ButtonValue } from './ActionButton'
 
-const AuthModal = lazy(() => import('@/components/layout/Auth/Modal'))
-
-export const Likes = ({ _id, likes }: Post) => {
-  const [isOpen, onOpen, onClose] = useBoolean()
-  const { toggleLike } = usePosts()
+export const Likes: React.FC<Post> = ({ _id, likes }) => {
+  const { handleLike } = usePosts()
   const { account } = useAccount()
-
-  const isLiked = likes?.some((id) => id === account?._id)
+  const { params } = useLocation()
+  const { isLiked } = verifyIfLikeExists(likes, account?._id)
 
   const onChange = async () => {
     await likePost(_id)
-    toggleLike(_id, account!._id)
+    if (Boolean(params.length)) {
+      mutate(`/posts${params}`)
+    }
+    
+    handleLike(_id, account?._id)
   }
 
   return (
-    <Flex>
-      {
-        isOpen && (
-          <Suspense fallback={null}>
-            <AuthModal
-              open={isOpen}
-              onClose={onClose}
-            />
-          </Suspense>
-        )
-      }
-      {
-        account ? (
-          <Checkbox
-            icon={<FavoriteBorder />}
-            checkedIcon={<FavoriteOutlined />}
-            checked={isLiked}
-            onChange={onChange}
-          />
-        ) : (
-          <IconButton
-            aria-label='likes'
-            onClick={onOpen}
-          >
-            <FavoriteBorder />
-          </IconButton>
-        )
-      }
-      <Typography 
-        id='likes' 
-        component='span' 
-        variant='body2'
-      >
-        {likes?.length}
-      </Typography>
-    </Flex>
+    <>
+      <Checkbox
+        icon={<FavoriteBorder />}
+        checkedIcon={<FavoriteOutlined />}
+        checked={isLiked}
+        onChange={onChange}
+      />
+      <ButtonValue 
+        id='likes'
+        value={likes.length}
+      />
+    </>
   )
 }

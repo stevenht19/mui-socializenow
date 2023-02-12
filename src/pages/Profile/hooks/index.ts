@@ -1,3 +1,3 @@
-export { default as useFakeProfile } from './useFakeProfile'
-export { default as useFakePosts } from './useFakePosts'
-export { default as useScroll } from './useScroll'
+export { default as usePosts } from './usePosts'
+export { default as useProfile } from './useProfile'
+export { default as useScrollRestoration } from './useScrollRestoration'

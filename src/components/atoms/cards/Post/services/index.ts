@@ -6,3 +6,5 @@ export const likePost = async (postId: string) => {
     }
   })
 }
+
+export { default as addComment } from './addComment'

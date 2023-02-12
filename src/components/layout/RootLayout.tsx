@@ -12,10 +12,10 @@ export default function RootLayout({ children }: {
       <Appbar />
       <Toolbar />
       <Container
-        sx={{
-          display: 'flex',
-        }}
         disableGutters
+        sx={{
+          display: 'flex'
+        }}
       >
         <Sidebar />
         <Outlet>

@@ -17,7 +17,7 @@ export const PostSkeleton = () => {
             animation='wave'
             height={15}
             width='80%'
-            style={{ marginBottom: 6 }}
+            sx={{ mb: 1 }}
           />
         }
         subheader={

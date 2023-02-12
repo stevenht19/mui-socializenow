@@ -2,9 +2,10 @@ import { lazy, Suspense } from 'react'
 import { AppBar, Toolbar, Container } from '@mui/material'
 import { useBoolean } from '@/hooks'
 import { withAuthModal } from '@/hocs'
+import { Link } from '@/components/atoms/Link'
 import { AppbarButtons } from './AppbarButtons'
 
-const PostModal = lazy(() => import('@/components/layout/Posts/Modal/Modal'))
+const Modal = lazy(() => import('@/components/layout/Posts/Modal'))
 
 const ButtonsWithModal = withAuthModal(AppbarButtons)
 
@@ -16,7 +17,7 @@ const Buttons = () => {
       {
         isOpen && (
           <Suspense fallback={null}>
-            <PostModal
+            <Modal
               open={isOpen}
               onClose={onClose}
             />
@@ -42,7 +43,9 @@ const Header = () => {
           justifyContent: 'space-between',
           alignItems: 'center'
         }}>
-          App Logo
+          <Link to='/'>
+            App Logo
+          </Link>
           <Buttons />
         </Container>
       </Toolbar>

@@ -1,20 +1,21 @@
-import { FakeAccount } from '@/models'
+import { Account } from '@/models'
 import { Routes } from '@/routes'
 import {
-  Avatar,
   ListItem,
   ListItemAvatar,
   ListItemText
 } from '@mui/material'
+import { Avatar } from '@/components/atoms/Avatar'
 import { Link } from './Link'
 
 export const AccountItem = ({
-  id,
+  _id,
+  color,
+  username,
   firstName,
   lastName,
-  username,
-  image
-}: FakeAccount) => {
+  picture
+}: Account) => {
   return (
     <ListItem
       disablePadding
@@ -25,14 +26,13 @@ export const AccountItem = ({
         }
       }}
     >
-      <Link to={`${Routes.FAKE_USER}/${id}`} disablePadding>
+      <Link to={`${Routes.USER}/${_id}`} disablePadding>
         <ListItemAvatar>
-          <Avatar
-            src={image}
-            sx={{
-              width: 40,
-              height: 40
-            }}
+          <Avatar 
+            picture={picture}
+            color={color}
+            username={username}
+            ariaLabel={'suggested-account'}
           />
         </ListItemAvatar>
         <ListItemText

@@ -1,4 +1,4 @@
-import { LoadingButton } from '@/components/atoms/LoadingButton'
+import { LoadingButton } from '@/components/atoms/buttons/LoadingButton'
 import { Box, TextField, Typography } from '@mui/material'
 
 type Props = {

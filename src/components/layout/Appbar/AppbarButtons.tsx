@@ -1,6 +1,6 @@
 import { lazy, Suspense } from 'react'
 import { AccountCircle, Add } from '@mui/icons-material'
-import { Button } from '@/components/atoms/Button'
+import { Button } from '@/components/atoms/buttons/Button'
 import { Flex } from '@/components/atoms/Flex'
 import { Spinner } from '@/components/atoms/Spinner'
 import { Props } from '@/hocs/withAuthModal'

@@ -3,6 +3,8 @@ import { UserAvatar } from '@/components/atoms/UserAvatar'
 import { AccountCircle, ExitToApp, Inbox } from '@mui/icons-material'
 import { IconButton, Menu, MenuItem, Tooltip, styled, MenuProps, Divider, Badge } from '@mui/material'
 import { useAnchor } from './hooks'
+import { Link } from 'wouter'
+import { Routes } from '@/routes'
 
 const StyledMenu = styled((props: MenuProps) => (
   <Menu
@@ -51,7 +53,7 @@ const menuPaperProps = {
   }
 }
 const AccountMenu = () => {
-  const { logout } = useAccount()
+  const { account, logout } = useAccount()
   const { anchorEl, isOpen, onClick, onClose } = useAnchor()
 
   return (
@@ -84,7 +86,11 @@ const AccountMenu = () => {
         onClose={onClose}
         PaperProps={menuPaperProps}
       >
-        <MenuItem onClick={onClose}>
+        <MenuItem 
+          onClick={onClose}
+          component={Link} 
+          to={`${Routes.USER}/${account?._id}`}
+        >
           <AccountCircle />
           Profile
         </MenuItem>

@@ -1,31 +1,52 @@
+import { DefaultParams, Redirect } from 'wouter'
 import { Tab } from '@mui/material'
+import { Routes } from '@/routes'
 import { TabPanelProvider } from '@/context/TabPanel'
-import { useScroll } from './hooks'
 import { ProfileCard } from './components/ProfileCard'
-import { PostsView } from './views/PostsView'
-import { AboutView } from './views/AboutView'
-import { LikesView } from './views/LikesView'
-import { Props } from './types'
+import { Skeleton } from './components/Skeleton'
+import { AboutView, LikesView, PostsView } from './views'
+import { useProfile, useScrollRestoration } from './hooks'
 
-export default function Profile({ params }: Props) {
-  useScroll(() => {
-    return 0
-  }, [params.id])
+type Props = {
+  params: DefaultParams
+}
+
+export default function Profile({
+  params
+}: Props) {
+
+  useScrollRestoration(0)
+
+  const userId = params!.id!
 
   return (
     <div>
-      <ProfileCard params={params} />
-      <TabPanelProvider
-        views={[
-          <PostsView params={params} />, 
-          <AboutView params={params} />, 
-          <LikesView params={params} />
-        ]}
-      >
+      <Card id={userId} />
+      <TabPanelProvider views={[
+        <PostsView id={userId} />,
+        <AboutView />,
+        <LikesView id={userId} />
+      ]}>
         <Tab label='Posts' />
         <Tab label='About' />
         <Tab label='Likes' />
       </TabPanelProvider>
     </div>
   )
+}
+
+const Card = (props: { id: string }) => {
+  const { profile, isLoading } = useProfile(props.id)
+
+  if (isLoading) {
+    return <Skeleton />
+  }
+
+  if (!isLoading && !profile) {
+    return (
+      <Redirect to={Routes.MAIN} />
+    )
+  }
+
+  return <ProfileCard {...profile!} />
 }

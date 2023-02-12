@@ -7,8 +7,8 @@ import {
   styled
 } from '@mui/material'
 import { withAuthModal } from '@/hocs'
-import { Home, People } from '@mui/icons-material'
 import { Routes } from '@/routes'
+import { Home, People } from '@mui/icons-material'
 import { Link } from './components/Link'
 import { ListOfAccounts } from './components/ListOfAccounts'
 import { FollowingAccounts } from './components/FollowingAccounts'
@@ -60,7 +60,11 @@ const Sidebar = () => {
           </ListItem>
         </List>
         <FollowingAccountsWithModal />
-        <ListOfAccounts subheader='Suggested Accounts' />
+        <ListOfAccounts 
+          subheader='Suggested Accounts'
+          skip={3}
+          limit={5}
+        />
       </Content>
     </StyledSidebar>
   )

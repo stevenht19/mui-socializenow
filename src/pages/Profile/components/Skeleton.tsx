@@ -1,21 +1,25 @@
-import { Box, Skeleton } from '@mui/material'
+import { Box, Skeleton as MuiSkeleton } from '@mui/material'
 
-export const ProfileCardSkeleton = () => {
+export const Skeleton = () => {
   return (
-    <Box display='flex' gap={2.5} px={4} minHeight='13rem'>
-      <Skeleton
+    <Box 
+      display='flex'
+      minHeight='13rem' 
+      gap={2.5}
+    >
+      <MuiSkeleton
         variant='circular'
         animation='wave'
         width={120}
         height={120}
       />
-      <Box maxWidth='15rem' flex={1}>
-        <Skeleton
+      <Box maxWidth='13rem' flex={1}>
+        <MuiSkeleton
           variant='rectangular'
           animation='wave'
           height={45}
         />
-        <Skeleton
+        <MuiSkeleton
           sx={{ mt: 2 }}
           variant='rectangular'
           animation='wave'

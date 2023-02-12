@@ -1,32 +1,34 @@
 import { Fragment, Suspense, lazy } from 'react'
 import { useAccount, useBoolean } from '@/hooks'
-import { User } from '@/models'
+import { Account } from '@/models'
 
 export type Props = {
-  user: User | null
+  user: Account | null
   isLoading?: boolean
+  children?: React.ReactNode
   onOpen: () => void
   verifyUser: () => void
 }
 
 type Params = {
   action?: () => void
+  children?: React.ReactNode
 }
 
-const Modal = lazy(() => import('@/components/layout/Auth/Modal'))
+const Modal = lazy(() => import('@/components/layout/Auth'))
 
 const withAuthModal = (Component: React.FC<Props>) => {
-  return ({ action }: Params) => {
+  return ({ action, children }: Params) => {
 
     const [isOpen, onOpen, onClose] = useBoolean()
     const { account, isLoading } = useAccount()
 
     const verifyIfUserExists = () => {
-
-      if (account) {
-        action && action()
+      if (account && action) {
+        action()
         return;
       }
+
       onOpen()
     }
 
@@ -47,7 +49,9 @@ const withAuthModal = (Component: React.FC<Props>) => {
           isLoading={isLoading}
           onOpen={onOpen}
           verifyUser={verifyIfUserExists}
-        />
+        >
+          {children && children}
+        </Component>
       </Fragment>
     )
   }

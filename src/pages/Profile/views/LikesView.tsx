@@ -1,35 +1,37 @@
 import { Flex } from '@/components/atoms/Flex'
+import { Lock } from '@mui/icons-material'
 import { Typography } from '@mui/material'
-import { Lock }  from '@mui/icons-material'
-import { Props } from '../types'
-import { useFakeProfile } from '../hooks'
+import { useProfile } from '../hooks'
 
-export const LikesView = ({ params }: Props) => {
-  const { id } = params
-  const { profile } = useFakeProfile(id!)
+const LikesView = ({ id = '' }) => {
+  const { profile } = useProfile(id)
 
   return (
-    <Flex 
-      justifyContent='center'
+    <Flex
       flexDirection='column'
-      py={4.5}
-      gap={2}
+      py={3}
     >
-      <Lock sx={{ fontSize: '3rem' }} />
+      <Lock
+        sx={{ fontSize: '3.05rem' }}
+      />
       <Typography 
+        component='h2' 
         variant='h6' 
         fontWeight={700}
-        textAlign='center'
+        mt={1.5}
       >
-        The user's liked posts are private
+        This user's liked posts are private.
       </Typography>
       <Typography 
-        fontWeight={500}
-        textAlign='center'
+        component='p' 
         color='text.secondary'
+        fontWeight={400}
+        mt={.5}
       >
-        Videos liked by {profile?.username} are currently hidden.
+        Posts liked by {profile?.username} are currently hidden
       </Typography>
     </Flex>
   )
 }
+
+export default LikesView

@@ -1,4 +1,4 @@
-import { Button } from '@/components/atoms/Button'
+import { Button } from '@/components/atoms/buttons/Button'
 import { Props } from '@/hocs/withAuthModal'
 import { Box, Typography } from '@mui/material'
 import { ListOfAccounts } from './ListOfAccounts'
@@ -51,7 +51,8 @@ export const FollowingAccounts = ({
   return (
     <ListOfAccounts
       subheader='Following Accounts'
-      q='?limit=3&skip=5'
+      skip={0}
+      limit={2}
       disableSpinner
     />
   )

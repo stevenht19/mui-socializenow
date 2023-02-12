@@ -1,17 +1,24 @@
 import { Divider, List, ListSubheader } from '@mui/material'
+import { useAccounts } from '@/hooks'
 import { Flex } from '@/components/atoms/Flex'
 import { Spinner } from '@/components/atoms/Spinner'
-import { useFakeUsers } from '@/hooks'
 import { AccountItem } from './AccountItem'
+
 
 type Props = {
   subheader: string
-  q?: string
+  skip: number
+  limit: number
   disableSpinner?: true
 }
 
-export const ListOfAccounts = ({ subheader, q, disableSpinner }: Props) => {
-  const [accounts] = useFakeUsers(q)
+export const ListOfAccounts = ({ 
+  subheader, 
+  skip, 
+  limit, 
+  disableSpinner 
+}: Props) => {
+  const { accounts } = useAccounts(skip, limit)
 
   if (disableSpinner && !accounts?.length) {
     return null
@@ -20,7 +27,7 @@ export const ListOfAccounts = ({ subheader, q, disableSpinner }: Props) => {
   if (!accounts?.length) {
     return (
       <Flex justifyContent={'center'} pt={3}>
-        <Spinner />
+        <Spinner size={35} />
       </Flex>
     )
   }
@@ -48,7 +55,7 @@ export const ListOfAccounts = ({ subheader, q, disableSpinner }: Props) => {
           {
             accounts.map((props) => (
               <AccountItem
-                key={props.id}
+                key={props._id}
                 {...props}
               />
             ))

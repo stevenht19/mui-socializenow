@@ -1,5 +1,5 @@
 import { Grid, Skeleton } from '@mui/material'
-import { useFakeUsers } from '@/hooks'
+import { useAccounts } from '@/hooks'
 import { UserCard } from './components/UserCard'
 import { Item } from './components/Item'
 
@@ -7,7 +7,7 @@ let n = 0
 const skeletonArray = new Array(15).fill('').map(() => n++)
 
 const Following = () => {
-  const [fakeUsers, isLoading] = useFakeUsers('?limit=15&skip=16')
+  const {accounts, isLoading} = useAccounts(0, 15)
 
   return (
     <Grid container spacing={4} pb={4}>
@@ -25,9 +25,9 @@ const Following = () => {
             </Item>
           ))
         ) : (
-          fakeUsers?.map((props) => (
+          accounts?.map((props) => (
             <UserCard
-              key={props.id}
+              key={props._id}
               {...props}
             />
           ))

@@ -1,25 +1,23 @@
-import { Link } from 'wouter'
-import { Avatar, Typography, styled, Paper } from '@mui/material'
+import { Typography, Paper } from '@mui/material'
 import { Add } from '@mui/icons-material'
-import { Button } from '@/components/atoms/Button'
-import { FakeAccount } from '@/models'
-import { Item } from './Item'
+import { Button } from '@/components/atoms/buttons/Button'
+import { Account } from '@/models'
+import { Avatar } from '@/components/atoms/Avatar'
+import { Link } from '@/components/atoms/Link'
 import { Routes } from '@/routes'
+import { Item } from './Item'
 
-const StyledLink = styled(Link)`
-  text-decoration: none;
-`
-
-export const UserCard: React.FC<FakeAccount> = ({
-  id,
-  image,
+export const UserCard: React.FC<Account> = ({
+  _id,
+  picture,
   firstName,
   lastName,
-  username
+  username,
+  color
 }) => {
   return (
     <Item>
-      <StyledLink to={`${Routes.FAKE_USER}/${id}`}>
+      <Link to={`${Routes.USER}/${_id}`}>
         <Paper
           elevation={0}
           variant='outlined'
@@ -35,12 +33,11 @@ export const UserCard: React.FC<FakeAccount> = ({
           }}
         >
           <Avatar
-            src={image}
-            alt={`${firstName}-card`}
-            sx={{
-              width: 85,
-              height: 85
-            }}
+            picture={picture}
+            username={username}
+            color={color}
+            ariaLabel={'following-card'}
+            size={85}
           />
           <Typography 
             component='h2' 
@@ -67,7 +64,7 @@ export const UserCard: React.FC<FakeAccount> = ({
             Follow
           </Button>
         </Paper>
-      </StyledLink>
+      </Link>
     </Item>
   )
 }

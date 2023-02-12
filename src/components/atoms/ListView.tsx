@@ -4,6 +4,7 @@ type Props<Item> = {
   items: Item[]
   isLoading?: boolean
   customMessage?: string
+  py?: number
   renderItem: (item: Item) => React.ReactNode
   skeletonRender?: (n: number) => React.ReactNode
 }
@@ -12,6 +13,7 @@ export function ListView<Item>({
   items,
   isLoading,
   customMessage,
+  py,
   skeletonRender,
   renderItem 
 }: Props<Item>) {
@@ -19,6 +21,7 @@ export function ListView<Item>({
     <Stack 
       spacing={4}
       pb={4}
+      {...(py && { py })}
     >
       {
         isLoading ? (

@@ -1,9 +1,13 @@
 import { CircularProgress } from '@mui/material'
 
-export const Spinner = ({ size }: {
-  size?: number
+export const Spinner = ({ size, mx }: {
+  size?: number,
+  mx?: number
 }) => {
   return (
-    <CircularProgress {...(size && { size })} />
+    <CircularProgress 
+      {...(size && { size })} 
+      {...(mx && { sx: { mx: mx } })} 
+    />
   )
 }

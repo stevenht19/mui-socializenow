@@ -1,13 +1,16 @@
-import { User } from './User'
+import Comment from './Comment'
+import Account from './User'
 
 interface Post {
   _id: string
-  author: User
+  author: Account
   text: string
   createdAt: Date
   feeling?: string
-  likes?: string[]
+  likes: string[]
   image?: Image
+  totalComments: number
+  comments: Comment[]
 }
 
 type Image = {

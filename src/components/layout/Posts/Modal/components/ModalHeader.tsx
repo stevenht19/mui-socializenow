@@ -1,5 +1,5 @@
 import { Flex } from '@/components/atoms/Flex'
-import { Button } from '@/components/atoms/AbsoluteButton'
+import { Button } from '@/components/atoms/buttons/AbsoluteButton'
 import { useTabPanel } from '@/context/hooks'
 import { ArrowBack } from '@mui/icons-material'
 import { Typography } from '@mui/material'
