@@ -1,9 +1,9 @@
+import { TextField } from '@mui/material'
 import { Flex } from '@/components/atoms/Flex'
 import { UserAvatar } from '@/components/atoms/UserAvatar'
 import { Props } from '@/hocs/withAuthModal'
-import { TextField } from '@mui/material'
 
-export const CommentInput = ({ user, verifyUser, children }: Props) => {
+export const CommentInput = ({ verifyUser, user, children }: Props) => {
   return (
     <Flex p={2} gap={1.5}>
       <UserAvatar />

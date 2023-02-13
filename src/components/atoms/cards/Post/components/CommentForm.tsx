@@ -12,19 +12,22 @@ const CommentInputWithModal = withAuthModal(CommentInput)
 
 type Props = {
   postId: Post['_id']
-  incrementComments: () => void
+  incrementComments: (postId: Post['_id']) => void
 }
 
-export const CommentForm = ({ postId, incrementComments }: Props) => {
+export const CommentForm = ({ 
+  postId, 
+  incrementComments 
+}: Props) => {
   const { account } = useAccount()
   const { register, handleSubmit } = useForm<Inputs>()
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     if (!account?._id) return
 
-    addComment(postId, { ...data, author: account._id })
+    await addComment(postId, { ...data, author: account._id })
+    incrementComments(postId)
     mutate('/comments/' + postId)
-    incrementComments()
   }
 
   return (

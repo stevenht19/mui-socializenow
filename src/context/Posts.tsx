@@ -8,13 +8,15 @@ type PostContextType = {
   isLoading: boolean
   addPost: (post: Omit<Post, 'date'>, author: Account) => void
   handleLike: (postId: Post['_id'], userId?: Account['_id']) => void
+  incrementComments: (postId: Post['_id']) => void
 }
 
 export const PostContext = createContext<PostContextType>({
   posts: [],
   isLoading: true,
   addPost: () => {},
-  handleLike: () => {}
+  handleLike: () => {},
+  incrementComments: () => {}
 })
 
 export default function Posts({ children }: {
@@ -52,12 +54,17 @@ export default function Posts({ children }: {
       })
   }
 
+  const incrementComments = (postId: Post['_id']) => {
+    setPosts(posts => posts.map((post) => post._id === postId ? {...post, totalComments: post.totalComments + 1 } : post))
+  }
+
   return (
     <PostContext.Provider value={{
       isLoading,
       posts,
       addPost,
-      handleLike
+      handleLike,
+      incrementComments
     }}>
       {children}
     </PostContext.Provider>

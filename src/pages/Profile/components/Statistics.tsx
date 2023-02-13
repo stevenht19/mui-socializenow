@@ -7,7 +7,7 @@ const getRandomNumber = (max?: number) => {
 export const Statistics = () => {
   const followingCount = getRandomNumber(100)
   const followersCount = getRandomNumber()
-  const likesCount = getRandomNumber(2200 * 5)
+  const likesCount = getRandomNumber(4)
 
   return (
     <Box py={4} display='flex' columnGap={3} rowGap={2} flexWrap='wrap'>
@@ -20,8 +20,8 @@ export const Statistics = () => {
         title='Followers'
       />
       <Statistic 
-        value={likesCount}
-        title='Likes Count'
+        value={likesCount + 'k'}
+        title='Likes'
       />
     </Box>
   )

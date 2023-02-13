@@ -7,7 +7,9 @@ const fetcher: Fetcher<Comment[], string> = async (args) => {
 }
 
 const useComments = (postId: Post['_id']) => {
-  const { data, isLoading } = useSWR('/comments/' + postId, fetcher)
+  const { data, isLoading } = useSWR('/comments/' + postId, fetcher, {
+    revalidateOnFocus: false
+  })
 
   return {
     comments: data ?? [],

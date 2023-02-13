@@ -3,9 +3,9 @@ import { Post } from '@/models'
 import { useAccount, useLocation, usePosts } from '@/hooks'
 import { FavoriteBorder, FavoriteOutlined } from '@mui/icons-material'
 import { Checkbox } from '@mui/material'
+import { ButtonValue } from './ActionButton'
 import { verifyIfLikeExists } from '../utils'
 import { likePost } from '../services'
-import { ButtonValue } from './ActionButton'
 
 export const Likes: React.FC<Post> = ({ _id, likes }) => {
   const { handleLike } = usePosts()

@@ -1,5 +1,5 @@
 import { Fragment, useState } from 'react'
-import { useAccount, useBoolean } from '@/hooks'
+import { useAccount, useBoolean, usePosts } from '@/hooks'
 import { Post } from '@/models'
 import { Flex } from '@/components/atoms/Flex'
 import { Snackbar } from '@/components/atoms/Snackbar'
@@ -21,15 +21,11 @@ export const Actions = ({
   children
 }: Props) => {
   const { account } = useAccount()
+  const { incrementComments } = usePosts()
   const [snackbarOpen, showSnackbar, hideSnackbar] = useBoolean()
   const [commentsOpen, ...rest] = useBoolean()
-  const [commentsLength, setTotal] = useState<number>(totalComments ?? 0)
 
   const onToggle = () => rest[2]()
-
-  const incrementComments = () => {
-    setTotal(n => n + 1)
-  }
 
   const handleShare = () => {
     navigator.clipboard.writeText('link/' + _id)
@@ -63,7 +59,7 @@ export const Actions = ({
         >
           <ButtonValue
             id='comments'
-            value={commentsLength}
+            value={totalComments}
           />
         </ActionButton>
       </Flex>
