@@ -18,13 +18,9 @@ export const ListOfAccounts = ({
   limit, 
   disableSpinner 
 }: Props) => {
-  const { accounts } = useAccounts(skip, limit)
+  const { accounts, isLoading } = useAccounts(skip, limit)
 
-  if (disableSpinner && !accounts?.length) {
-    return null
-  }
-
-  if (!accounts?.length) {
+  if (isLoading && disableSpinner) {
     return (
       <Flex justifyContent={'center'} pt={3}>
         <Spinner size={35} />

@@ -4,7 +4,7 @@ import { Spinner } from '@/components/atoms/Spinner'
 import { CommentItem } from './CommentItem'
 import { useComments } from '../hooks'
 
-export const CommentList = (props: { postId: Post['_id'] }) => {
+const CommentList = (props: { postId: Post['_id'] }) => {
   const { postId } = props
   const { comments, isLoading } = useComments(postId)
 
@@ -28,3 +28,4 @@ export const CommentList = (props: { postId: Post['_id'] }) => {
     </Stack>
   )
 }
+export default CommentList

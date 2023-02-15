@@ -1,25 +1,20 @@
-import { Fragment, useState } from 'react'
+import { Fragment, lazy, Suspense } from 'react'
 import { useAccount, useBoolean, usePosts } from '@/hooks'
 import { Post } from '@/models'
-import { Flex } from '@/components/atoms/Flex'
-import { Snackbar } from '@/components/atoms/Snackbar'
 import { ChatBubbleOutline, Share } from '@mui/icons-material'
 import { CardActions, Collapse } from '@mui/material'
-import { CommentForm } from './CommentForm'
-import { LikesWithModal } from './LikesWithModal'
+import { Flex } from '@/components/atoms/Flex'
+import { Snackbar } from '@/components/atoms/Snackbar'
+import { Spinner } from '@/components/atoms/Spinner'
 import { ActionButton, ButtonValue } from './ActionButton'
-import { CommentList } from './CommentList'
+import { LikesWithModal } from './LikesWithModal'
+import { Likes } from './Likes'
 
-type Props = Post & {
-  children: React.ReactNode
-}
+const CommentForm = lazy(() => import('./CommentForm')) 
+const CommentList = lazy(() => import('./CommentList'))
 
-export const Actions = ({
-  _id,
-  likes,
-  totalComments,
-  children
-}: Props) => {
+export const Actions = (props: Post) => {
+  const { _id, likes, totalComments, author } = props
   const { account } = useAccount()
   const { incrementComments } = usePosts()
   const [snackbarOpen, showSnackbar, hideSnackbar] = useBoolean()
@@ -28,7 +23,7 @@ export const Actions = ({
   const onToggle = () => rest[2]()
 
   const handleShare = () => {
-    navigator.clipboard.writeText('link/' + _id)
+    navigator.clipboard.writeText(`${window.location.href}users/${author._id}`)
     showSnackbar()
   }
 
@@ -48,7 +43,7 @@ export const Actions = ({
                 {likes.length}
               </LikesWithModal>
             ) : (
-              children
+              <Likes {...props} />
             )
           }
         </Flex>
@@ -73,13 +68,15 @@ export const Actions = ({
     <Collapse in={commentsOpen}>
       {
         commentsOpen && (
-          <Fragment>
-            <CommentForm
-              postId={_id}
-              incrementComments={incrementComments}
-            />
-            <CommentList postId={_id} />
-          </Fragment>
+          <Suspense fallback={<Spinner mx={2} />}>
+            <Fragment>
+              <CommentForm
+                postId={_id}
+                incrementComments={incrementComments}
+              />
+              <CommentList postId={_id} />
+            </Fragment>
+          </Suspense>
         )
       }
     </Collapse>

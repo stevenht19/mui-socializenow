@@ -1,19 +1,19 @@
 import { Account } from '@/models'
-import { Routes } from '@/routes'
+import { Routes } from '@/utils'
+import { Avatar } from '@/components/atoms/Avatar'
 import {
   ListItem,
   ListItemAvatar,
   ListItemText
 } from '@mui/material'
-import { Avatar } from '@/components/atoms/Avatar'
 import { Link } from './Link'
 
 export const AccountItem = ({
   _id,
   color,
   username,
-  firstName,
-  lastName,
+  firstname,
+  lastname,
   picture
 }: Account) => {
   return (
@@ -37,7 +37,7 @@ export const AccountItem = ({
         </ListItemAvatar>
         <ListItemText
           primary={username}
-          secondary={`${firstName} ${lastName}`}
+          secondary={`${firstname} ${lastname}`}
         />
       </Link>
     </ListItem>

@@ -18,11 +18,12 @@ export const CreatePostView = ({ children }: {
     <FormBox>
       <User />
       <InputBase
-        multiline
         fullWidth
+        key={'text'}
         minRows={4.5}
-        maxRows={10}
+        maxRows={7.5}
         spellCheck={false}
+        multiline
         placeholder={`What's on your mind?`}
         {...register('text', {
           required: true

@@ -1,8 +1,8 @@
 import dayjs from 'dayjs'
+import Linkify from 'linkify-react'
 import relativeTime from 'dayjs/plugin/relativeTime'
 import { Post } from '@/models'
 import { Actions } from './components/CardActions'
-import { Likes } from './components/Likes'
 import { CardHeader } from './components/CardHeader'
 import {
   Card,
@@ -36,12 +36,15 @@ const PostCard = (props: Post) => {
           variant='body2'
           sx={{ whiteSpace: 'pre-wrap' }}
         >
-          {text}
+          <Linkify options={{
+            target: '_blank',
+            rel: 'noopenner'
+          }}>
+            {text}
+          </Linkify>
         </Typography>
       </CardContent>
-      <Actions {...props}>
-        <Likes {...props} />
-      </Actions>
+      <Actions {...props} />
     </Card>
   )
 }

@@ -1,13 +1,15 @@
 import { Post } from '@/models'
+import { getFetch } from '@/utils'
 import useSWR, { Fetcher } from 'swr'
 
 const fetcher: Fetcher<Post[], string> = async (args) => {
-  return fetch(`${import.meta.env.VITE_MONGO_API_URL}${args}`)
-    .then(res => res.json())
+  return getFetch(args)
 }
 
 const usePosts = (userId: string) => {
-  const { data, isLoading } = useSWR(`/posts/${userId}`, fetcher)
+  const { data, isLoading } = useSWR(`/posts/${userId}`, fetcher, {
+    revalidateOnFocus: false,
+  })
   
   return {
     posts: data,

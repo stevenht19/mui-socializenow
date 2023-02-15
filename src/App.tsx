@@ -1,8 +1,8 @@
 import { Route } from 'wouter'
-import { lazy, Suspense } from 'react'
+import { lazy, Suspense, useEffect } from 'react'
 import { AccountProvider, PostProvider } from '@/context'
 import { RootLayout } from '@/components/layout'
-import { Routes } from '@/routes'
+import { Routes } from '@/utils'
 import Home from '@/pages/Home'
 
 const Following = lazy(() => import('@/pages/Following'))

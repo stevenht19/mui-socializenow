@@ -1,12 +1,14 @@
 import { Box, styled } from '@mui/material'
 
-const Container = styled(Box)({
+const Container = styled(Box)(({ theme }) => ({
   paddingTop: '2rem',
   maxWidth: '56rem',
-  paddingInline: '2.2rem',
   marginInline: 'auto',
   width: '100%',
-})
+  [theme.breakpoints.up('md')]: {
+    paddingInline: '2.2rem',
+  }
+}))
 
 export const Outlet = ({ children }: {
   children: React.ReactNode

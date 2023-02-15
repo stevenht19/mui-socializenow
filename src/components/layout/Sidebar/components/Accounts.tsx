@@ -1,14 +1,14 @@
+import { Account } from '@/models'
 import {  
   Divider, 
   List, 
   ListSubheader
 } from '@mui/material'
-import { FakeAccount } from '@/models'
 import { AccountItem } from './AccountItem'
 
 type Props = {
   subheader: string
-  accounts?: FakeAccount[]
+  accounts?: Account[]
 }
 
 export const Accounts: React.FC<Props> = ({
@@ -43,7 +43,7 @@ export const Accounts: React.FC<Props> = ({
           {
             accounts.map((props) => (
               <AccountItem 
-                key={props.id} 
+                key={props._id} 
                 {...props} 
               />
             ))

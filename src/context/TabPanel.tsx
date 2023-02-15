@@ -11,8 +11,8 @@ type TabPanelContextType = {
 
 export const TabPanelContext = createContext<TabPanelContextType>({
   value: 0,
-  onBack() { },
-  onChange() { },
+  onBack() {},
+  onChange() {},
 })
 
 type Props = {
@@ -34,7 +34,12 @@ export function TabPanelProvider({
     }}>
       {
         (children) ? (
-          <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+          <Box 
+            sx={{ 
+              borderBottom: 1, 
+              borderColor: 'divider' 
+            }}
+          >
             <Tabs
               value={value}
               onChange={onChange}

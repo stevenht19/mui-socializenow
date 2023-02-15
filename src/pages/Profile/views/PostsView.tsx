@@ -7,7 +7,6 @@ import { Props } from '../types'
 const PostsView = ({ id }: Props) => {
   const { posts, isLoading } = usePosts(id)
 
-
   return (
     <ListView
       py={3}

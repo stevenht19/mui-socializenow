@@ -1,20 +1,34 @@
-import { createContext, useEffect, useState } from 'react'
+import { createContext, useEffect, useReducer } from 'react'
 import { Account, Post } from '@/models'
 import { getPosts } from '@/context/services/getPosts'
-import { toggleLike } from './utils'
+import { postsReducer } from './reducers/postsReducer'
+import { Types } from './reducers/types'
 
-type PostContextType = {
+export type PostsContextState = {
   posts: Post[]
+  page: number
   isLoading: boolean
-  addPost: (post: Omit<Post, 'date'>, author: Account) => void
+  hasMore: boolean
+}
+
+type PostContextType = PostsContextState & {
+  addPost: (post: Omit<Post, 'createdAt'>, author: Account) => void
   handleLike: (postId: Post['_id'], userId?: Account['_id']) => void
   incrementComments: (postId: Post['_id']) => void
+  onNext: () => void
+}
+
+const initialState = {
+  posts: [],
+  page: 1,
+  hasMore: true,
+  isLoading: true,
 }
 
 export const PostContext = createContext<PostContextType>({
-  posts: [],
-  isLoading: true,
+  ...initialState,
   addPost: () => {},
+  onNext: () => {},
   handleLike: () => {},
   incrementComments: () => {}
 })
@@ -22,17 +36,25 @@ export const PostContext = createContext<PostContextType>({
 export default function Posts({ children }: {
   children: React.ReactNode
 }) {
-  const [posts, setPosts] = useState<Post[]>([])
-  const [isLoading, setIsLoading] = useState<boolean>(true)
+  const [postState, dispatch] = useReducer(postsReducer, initialState)
+  const { posts, isLoading, page, hasMore } = postState 
 
-  useEffect(() => {
-    getPosts()
-      .then(setPosts)
-      .finally(() => setIsLoading(false))
-  }, [])
+  useEffect(() => { 
+    getPosts(page)
+      .then((res) => dispatch({
+        type: Types.SET,
+        payload: res
+      }))
+  }, [page])
 
-  const addPost = (post: Post, author: Account) => {
-    setPosts(actualPosts => [{...post, author }, ...actualPosts])
+  const addPost = (post: Omit<Post, 'createdAt'>, author: Account) => {
+    dispatch({
+      type: Types.ADD,
+      payload: {
+        post,
+        author
+      }
+    })
   }
 
   const handleLike = (
@@ -40,30 +62,39 @@ export default function Posts({ children }: {
     userId?: Account['_id']
   ) => {
     if (!userId) return
-    if (!posts.some(({ _id }) => postId === _id)) return
 
-    setPosts(posts => {
-      return posts.map((post) => (post._id === postId) ? (
-        {
-          ...post,
-          likes: toggleLike(post.likes, userId) 
-        }
-        ) : 
-          post
-        )
-      })
+    dispatch({
+      type: Types.LIKE,
+      payload: {
+        postId,
+        userId
+      }
+    })
   }
 
   const incrementComments = (postId: Post['_id']) => {
-    setPosts(posts => posts.map((post) => post._id === postId ? {...post, totalComments: post.totalComments + 1 } : post))
+    dispatch({
+      type: Types.COMMENT,
+      payload: postId
+    })
+  }
+
+  const onNext = () => {
+    if (!hasMore) return
+    dispatch({
+      type: Types.NEXT,
+    })
   }
 
   return (
     <PostContext.Provider value={{
       isLoading,
       posts,
+      page,
+      hasMore,
       addPost,
       handleLike,
+      onNext,
       incrementComments
     }}>
       {children}

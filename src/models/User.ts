@@ -2,8 +2,8 @@ interface Account {
   _id: string
   username: string
   color: string
-  firstName?: string
-  lastName?: string
+  firstname?: string
+  lastname?: string
   picture?: string
 }
 

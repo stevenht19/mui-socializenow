@@ -1,5 +1,5 @@
 import { FormProvider, SubmitHandler, useForm } from 'react-hook-form'
-import { useAccount, useBoolean, usePosts } from '@/hooks'
+import { useAccount, useBoolean, usePosts, useLocation } from '@/hooks'
 import Modal, { ModalProps } from '@/components/atoms/Modal'
 import { TabPanelProvider } from '@/context/TabPanel'
 import { FeelingsView } from './views/FeelingsView'
@@ -7,18 +7,23 @@ import { CreatePostView } from './views/CreatePostView'
 import { PostButton } from './components/PostButton'
 import { createPost } from './services/createPost'
 import { CreatePost } from './types'
+import { mutate } from 'swr'
 
 const PostModal = ({ open, onClose }: ModalProps) => {
   const methods = useForm<CreatePost>({ mode: 'onBlur' })
   const { account } = useAccount()
-  const [isLoading, setIsLoading, stopLoading] = useBoolean()
+  const { params } = useLocation()
   const { addPost } = usePosts()
+  const [isLoading, setIsLoading, stopLoading] = useBoolean()
 
   const onSubmit: SubmitHandler<CreatePost> = async (data) => {
     try {
       setIsLoading()
       const post = await createPost(data, account!._id)
       addPost(post, account!)
+      if (params.length) {
+        mutate(`/posts/${account?._id}`)
+      }
       onClose()
     } catch (_) {
       stopLoading()

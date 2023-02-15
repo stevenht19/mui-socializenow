@@ -52,7 +52,7 @@ export const FollowingAccounts = ({
     <ListOfAccounts
       subheader='Following Accounts'
       skip={0}
-      limit={2}
+      limit={3}
       disableSpinner
     />
   )

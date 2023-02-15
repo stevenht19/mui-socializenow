@@ -1,9 +1,10 @@
 import { Account } from '@/models'
+import { getFetch } from '@/utils'
 import { Fetcher } from 'swr'
 import useSWRImmutable from 'swr/immutable'
 
 const fetcher: Fetcher<Account[], string> = async (args) => {
-  return fetch(`${import.meta.env.VITE_MONGO_API_URL}${args}`).then((res) => res.json())
+  return getFetch(args)
 }
 
 const useAccounts = (skip: number, limit: number) => {

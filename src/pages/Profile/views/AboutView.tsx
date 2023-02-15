@@ -1,5 +1,7 @@
 import { Typography } from '@mui/material'
 
+const text = `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque sed velit consequat, varius lectus porta, pellentesque dui. Proin vitae tristique erat. Nunc commodo nunc eget dui finibus, nec sagittis diam venenatis. Mauris posuere ante eget nibh semper tincidunt. Ut eget leo euismod, vulputate massa quis, hendrerit felis. Integer sit amet odio magna. Curabitur hendrerit arcu vel eros consectetur, eget congue mauris commodo. Maecenas sed ultricies tellus, at rutrum mi.`
+
 const AboutView = () => {
   return (
     <Typography
@@ -7,7 +9,7 @@ const AboutView = () => {
       color='text.secondary'
       py={3}
     >
-      Lorem, ipsum dolor sit amet consectetur adipisicing elit. Id repellendus molestiae aliquid? Repellat est consectetur doloremque, vitae commodi at? Quis minus tempore, quaerat at laboriosam repudiandae ipsam similique accusamus autem.
+      {text}
     </Typography>
   )
 }

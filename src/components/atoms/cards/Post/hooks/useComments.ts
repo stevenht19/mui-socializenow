@@ -1,9 +1,9 @@
 import { Post, Comment } from '@/models'
+import { getFetch } from '@/utils'
 import useSWR, { Fetcher } from 'swr'
 
 const fetcher: Fetcher<Comment[], string> = async (args) => {
-  return fetch(`${import.meta.env.VITE_MONGO_API_URL}/posts${args}`)
-    .then(res => res.json())
+  return getFetch(`/posts${args}`)
 }
 
 const useComments = (postId: Post['_id']) => {

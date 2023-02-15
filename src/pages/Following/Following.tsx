@@ -7,7 +7,7 @@ let n = 0
 const skeletonArray = new Array(15).fill('').map(() => n++)
 
 const Following = () => {
-  const {accounts, isLoading} = useAccounts(0, 15)
+  const { accounts, isLoading } = useAccounts(3, 15)
 
   return (
     <Grid container spacing={4} pb={4}>
@@ -17,7 +17,7 @@ const Following = () => {
             <Item key={number}>
               <Skeleton
                 variant='rectangular'
-                height={250}
+                height={255}
                 sx={{
                   borderRadius: 2
                 }}

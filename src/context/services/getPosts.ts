@@ -1,11 +1,11 @@
 import { Post } from '@/models'
+import { getFetch } from '@/utils'
 
-type Response = {
-  type: 'sucess'
-  posts: Post[]
+export type Response = {
+  docs: Post[]
+  hasNextPage: boolean
 }
 
-export const getPosts = async (): Promise<Response['posts']> => {
-  return fetch(`${import.meta.env.VITE_MONGO_API_URL}/posts`)
-    .then(res => res.json())
+export const getPosts = async (page: number): Promise<Response> => {
+  return getFetch(`/posts?page=${page}`) 
 }

@@ -2,7 +2,7 @@ import withAuthModal, { Props } from '@/hocs/withAuthModal'
 import { FavoriteBorder } from '@mui/icons-material'
 import { ActionButton, ButtonValue } from './ActionButton'
 
-const Likes = ({ children, verifyUser }: Props) => {
+const LikesGuard = ({ children, verifyUser }: Props) => {
   return (
     <ActionButton 
       id='like'
@@ -17,4 +17,4 @@ const Likes = ({ children, verifyUser }: Props) => {
   )
 }
 
-export const LikesWithModal = withAuthModal(Likes)
+export const LikesWithModal = withAuthModal(LikesGuard)

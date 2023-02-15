@@ -1,7 +1,7 @@
 import { Post } from '@/models'
-import { Routes } from '@/routes'
+import { Routes } from '@/utils'
 import { Link } from '@/components/atoms/Link'
-import { CardHeader as MuiCardHeader, Typography } from '@mui/material'
+import { CardHeader as MuiCardHeader, Typography, styled } from '@mui/material'
 import { Fragment } from 'react'
 import { Avatar } from '@/components/atoms/Avatar'
 import dayjs from 'dayjs'
@@ -9,10 +9,16 @@ import relativeTime from 'dayjs/plugin/relativeTime'
 
 dayjs.extend(relativeTime)
 
-export const CardHeader: React.FC<Post> = ({ 
-  feeling, 
+const StyledLink = styled(Link)`
+  &:hover {
+    text-decoration: underline;
+  }
+`
+
+export const CardHeader: React.FC<Post> = ({
+  feeling,
   author,
-  createdAt 
+  createdAt
 }) => {
   const { _id, username, color, picture } = author
   const feelingMessage = feeling ? feeling.split('-') : null
@@ -22,21 +28,21 @@ export const CardHeader: React.FC<Post> = ({
     <MuiCardHeader
       title={
         <Fragment>
-          <Link to={`${Routes.USER}/${_id}`}>
+          <StyledLink to={`${Routes.USER}/${_id}`}>
             {username + ' '}
-            {
-              feelingMessage && (
-                <Typography
-                  color='text.secondary'
-                  component='span'
-                  variant='body2'
-                >
-                  - is {feelingMessage[0]} feeling
-                  {' ' + feelingMessage[1]}
-                </Typography>
-              )
-            }
-          </Link>
+          </StyledLink>
+          {
+            feelingMessage && (
+              <Typography
+                color='text.secondary'
+                component='span'
+                variant='body2'
+              >
+                - is {feelingMessage[0]} feeling
+                {' ' + feelingMessage[1]}
+              </Typography>
+            )
+          }
         </Fragment>
       }
       subheader={date}

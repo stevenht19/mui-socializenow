@@ -4,14 +4,14 @@ import { Button } from '@/components/atoms/buttons/Button'
 import { Account } from '@/models'
 import { Avatar } from '@/components/atoms/Avatar'
 import { Link } from '@/components/atoms/Link'
-import { Routes } from '@/routes'
+import { Routes } from '@/utils'
 import { Item } from './Item'
 
 export const UserCard: React.FC<Account> = ({
   _id,
   picture,
-  firstName,
-  lastName,
+  firstname,
+  lastname,
   username,
   color
 }) => {
@@ -26,7 +26,7 @@ export const UserCard: React.FC<Account> = ({
             flexDirection: 'column',
             justifyContent: 'end',
             alignItems: 'center',
-            height: 250,
+            height: 255,
             px: 3,
             pb: 3,
             borderRadius: 2
@@ -44,7 +44,7 @@ export const UserCard: React.FC<Account> = ({
             fontWeight={800}
             mt={1.5}
           >
-            {firstName} {lastName}
+            {firstname} {lastname}
           </Typography>
           <Typography
             variant='body2'

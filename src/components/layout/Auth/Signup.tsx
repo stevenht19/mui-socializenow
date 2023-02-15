@@ -17,6 +17,8 @@ export const Signup = ({ onClose }: Props) => {
   const [isLoading, setIsLoading, stopLoading] = useBoolean()
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    if (data.password !== data.confirmPassword) return
+
     try {
       setIsLoading()
       const user = await getUser(data, '/signup')

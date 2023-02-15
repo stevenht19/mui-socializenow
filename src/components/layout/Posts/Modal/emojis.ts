@@ -40,11 +40,27 @@ export const emojis = [
     emoji: '😜'
   },
   {
-    name: 'thinker',
+    name: 'thoughtful',
     emoji: '🤔'
   },
   {
     name: 'serious',
     emoji: '😐'
+  },
+  {
+    name: 'festive',
+    emoji: '🥳'
+  },
+  {
+    name: 'wonderful',
+    emoji: '🙂'
+  },
+  {
+    name: 'chill',
+    emoji: '😌'
+  },
+  {
+    name: 'bored',
+    emoji: '😒'
   }
 ]

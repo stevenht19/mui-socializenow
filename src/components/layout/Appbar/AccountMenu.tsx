@@ -4,7 +4,7 @@ import { AccountCircle, ExitToApp, Inbox } from '@mui/icons-material'
 import { IconButton, Menu, MenuItem, Tooltip, styled, MenuProps, Divider, Badge } from '@mui/material'
 import { useAnchor } from './hooks'
 import { Link } from 'wouter'
-import { Routes } from '@/routes'
+import { Routes } from '@/utils'
 
 const StyledMenu = styled((props: MenuProps) => (
   <Menu

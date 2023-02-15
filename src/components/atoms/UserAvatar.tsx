@@ -1,5 +1,6 @@
 import { useAccount } from '@/hooks'
-import { Avatar } from '@mui/material'
+import { Avatar as MuiAvatar } from '@mui/material'
+import { Avatar } from './Avatar'
 
 type Props = {
   customSize?: number
@@ -9,19 +10,16 @@ export const UserAvatar = ({ customSize }: Props) => {
   const { account } = useAccount()
 
   if (!account) {
-    return <Avatar />
+    return <MuiAvatar />
   }
 
   return (
-    <Avatar sx={{
-      width: customSize || 40,
-      height: customSize || 40,
-      bgcolor: account.color,
-      ...(customSize && { fontSize: '1.15rem' })
-    }}>
-      {
-        account.username[0].toUpperCase()
-      }
-    </Avatar>
+    <Avatar 
+      username={account.username}
+      color={account.color}
+      picture={account?.picture}
+      ariaLabel={`${account.username}-avatar-profile`}
+      size={customSize}
+    />
   )
 }

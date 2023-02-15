@@ -1,8 +1,8 @@
 import { mutate } from 'swr'
 import { SubmitHandler, useForm } from 'react-hook-form'
+import { Post } from '@/models'
 import { TextField } from '@mui/material'
 import { useAccount } from '@/hooks'
-import { Post } from '@/models'
 import { withAuthModal } from '@/hocs'
 import { CommentInput } from './CommentInput'
 import { addComment } from '../services'
@@ -15,7 +15,7 @@ type Props = {
   incrementComments: (postId: Post['_id']) => void
 }
 
-export const CommentForm = ({ 
+const CommentForm = ({ 
   postId, 
   incrementComments 
 }: Props) => {
@@ -43,3 +43,5 @@ export const CommentForm = ({
     </form>
   )
 }
+
+export default CommentForm
