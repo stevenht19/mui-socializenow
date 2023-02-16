@@ -2,26 +2,34 @@ import { useForm, SubmitHandler } from 'react-hook-form'
 import { useAccount, useBoolean } from '@/hooks'
 import { TextField } from '@mui/material'
 import { getUser } from './services/auth'
-import { Form } from './Form'
+import { Form } from './components/Form'
+import { Error as TextError } from './components/Error'
 import { Props } from './types'
+import useError from './hooks/useError'
 
 type Inputs = {
   username: string
   password: string
+  unregistered: string
 }
 
 export const Login = ({ onClose }: Props) => {
-  const [isLoading, setIsLoading, stopLoading] = useBoolean()
+  const [ isLoading, setIsLoading, stopLoading ] = useBoolean()
   const { logIn } = useAccount()
-  const { register, handleSubmit, setError, formState: { errors } } = useForm<Inputs>()
+  const { register, handleSubmit, formState: { errors } } = useForm<Inputs>()
+  const { error, onError } = useError()
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
+    setIsLoading()
     try {
-      setIsLoading()
       const user = await getUser(data, '/login')
       logIn(user)
-      onClose() 
-    } catch(_) {
+      onClose()
+    } catch (e) {
+      if (e instanceof Error) {
+        onError(e.message)
+      }
+
       stopLoading()
     }
   }
@@ -40,6 +48,13 @@ export const Login = ({ onClose }: Props) => {
         error={Boolean(errors?.username)}
         {...register('username', { required: true })}
       />
+      {
+        Boolean(errors?.username) && (
+          <TextError>
+            {errors.username?.message || 'Required'}
+          </TextError>
+        )
+      }
       <TextField
         label='Password'
         type='password'
@@ -48,6 +63,20 @@ export const Login = ({ onClose }: Props) => {
         error={Boolean(errors?.password)}
         {...register('password', { required: true })}
       />
+      {
+        Boolean(errors?.password) && (
+          <TextError>
+            {errors.password?.message || 'Required'}
+          </TextError>
+        )
+      }
+      {
+        Boolean(error) && (
+          <TextError>
+            {error}
+          </TextError>
+        )
+      }
     </Form>
   )
 }

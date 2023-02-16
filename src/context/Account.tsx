@@ -23,7 +23,6 @@ export default function AccountProvider({ children }: {
 }) {
   const token = localStorage.getItem(tokenName)
   const [account, setAccount] = useState<Account | null>(null)
-  const [isLogged, setIsLogged] = useState<boolean>(false)
   const [isLoading, setIsLoading] = useState<boolean>(token ? true : false)
 
   useEffect(() => {
@@ -44,11 +43,10 @@ export default function AccountProvider({ children }: {
     if (!account) return;
     
     setAccount(account)
-    setIsLogged(true)
   }
 
   const onClose = () => {
-    setIsLogged(false)
+    setAccount(null)
   }
 
   return (
@@ -59,7 +57,7 @@ export default function AccountProvider({ children }: {
       logIn
     }}>
       <Snackbar
-        open={isLogged}
+        open={Boolean(account)}
         onClose={onClose}
         message={`Welcome ${account?.username}`}
       />

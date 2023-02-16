@@ -1,9 +1,11 @@
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { useAccount, useBoolean } from '@/hooks'
 import { TextField } from '@mui/material'
-import { Form } from './Form'
+import { Form } from './components/Form'
+import { Error as TextError } from './components/Error'
 import { getUser } from './services/auth'
 import { Props } from './types'
+import useError from './hooks/useError'
 
 type Inputs = {
   username: string
@@ -13,18 +15,29 @@ type Inputs = {
 
 export const Signup = ({ onClose }: Props) => {
   const { logIn } = useAccount()
-  const { register, handleSubmit, formState: { errors } } = useForm<Inputs>()
+  const { register, handleSubmit, setError, formState: { errors } } = useForm<Inputs>()
   const [isLoading, setIsLoading, stopLoading] = useBoolean()
+  const { error, onError } = useError()
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    if (data.password !== data.confirmPassword) return
-
     try {
+      const { password, confirmPassword } = data
+
+      if ((password !== confirmPassword)) {
+        setError('confirmPassword', { type: 'custom', message: 'Password does not match' })
+        return;
+      }
+
       setIsLoading()
+
       const user = await getUser(data, '/signup')
       logIn(user)
       onClose()
-    } catch (_) {
+    } catch (e) {
+      if (e instanceof Error) {
+        onError(e.message)
+      }
+
       stopLoading()
     }
   }
@@ -43,6 +56,13 @@ export const Signup = ({ onClose }: Props) => {
         error={Boolean(errors?.username)}
         {...register('username', { required: true })}
       />
+      {
+        Boolean(errors?.username) && (
+          <TextError>
+            {errors.username?.message || 'Required'}
+          </TextError>
+        )
+      }
       <TextField
         label='Password'
         type='password'
@@ -51,14 +71,35 @@ export const Signup = ({ onClose }: Props) => {
         error={Boolean(errors?.password)}
         {...register('password', { required: true })}
       />
+      {
+        Boolean(errors?.password) && (
+          <TextError>
+            Required
+          </TextError>
+        )
+      }
       <TextField
         label='Confirm Password'
         type='password'
         fullWidth
         sx={{ mt: 2.5 }}
-        error={Boolean(errors?.password)}
+        error={Boolean(errors?.confirmPassword)}
         {...register('confirmPassword', { required: true })}
       />
+      {
+        Boolean(errors?.confirmPassword) && (
+          <TextError>
+            {errors.confirmPassword?.message || 'Required'}
+          </TextError>
+        )
+      }
+      {
+        Boolean(error) && (
+          <TextError>
+            {error}
+          </TextError>
+        )
+      }
     </Form>
   )
 }
