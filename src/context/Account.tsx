@@ -2,6 +2,7 @@ import { createContext, useEffect, useState } from 'react'
 import { Account } from '@/models'
 import { Snackbar } from '@/components/atoms/Snackbar'
 import { getAccount } from '@/context/services/getAccount'
+import { getLocalStorage } from '@/utils/localStorage'
 
 type AccountContextType = {
   account: Account | null
@@ -10,7 +11,7 @@ type AccountContextType = {
   logIn(account?: Account): void
 }
 
-const tokenName = 'mui-social-app'
+const TOKEN_KEY = 'mui-social-app'
 
 export const AccountContext = createContext<AccountContextType>({
   account: null,
@@ -21,8 +22,9 @@ export const AccountContext = createContext<AccountContextType>({
 export default function AccountProvider({ children }: {
   children: React.ReactNode
 }) {
-  const token = localStorage.getItem(tokenName)
+  const token = getLocalStorage(TOKEN_KEY)
   const [account, setAccount] = useState<Account | null>(null)
+  const [snackbarOpen, setSnackbar] = useState<boolean>(false)
   const [isLoading, setIsLoading] = useState<boolean>(token ? true : false)
 
   useEffect(() => {
@@ -35,7 +37,7 @@ export default function AccountProvider({ children }: {
   }, [])
 
   const logout = () => {
-    localStorage.removeItem(tokenName)
+    localStorage.removeItem(TOKEN_KEY)
     setAccount(null)
   }
 
@@ -43,10 +45,11 @@ export default function AccountProvider({ children }: {
     if (!account) return;
     
     setAccount(account)
+    setSnackbar(true)
   }
 
   const onClose = () => {
-    setAccount(null)
+    setSnackbar(false)
   }
 
   return (
@@ -57,7 +60,7 @@ export default function AccountProvider({ children }: {
       logIn
     }}>
       <Snackbar
-        open={Boolean(account)}
+        open={snackbarOpen}
         onClose={onClose}
         message={`Welcome ${account?.username}`}
       />

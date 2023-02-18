@@ -10,7 +10,7 @@ export type PostsAction = {
 } | {
   type: Types.ADD,
   payload: {
-    post: Omit<Post, 'createdAt'>,
+    post: Post,
     author: Account
   }
 } | {
@@ -35,6 +35,11 @@ export const postsReducer = (state: PostsContextState, action: PostsAction) => {
         posts: state.posts.concat(action.payload.docs),
         hasMore: action.payload.hasNextPage
       }
+    case Types.NEXT:
+      return {
+        ...state,
+        page: state.page + 1
+      }
     case Types.LIKE:
       return {
         ...state,
@@ -57,10 +62,10 @@ export const postsReducer = (state: PostsContextState, action: PostsAction) => {
           }) : post
         })
       }
-    case Types.NEXT:
+    case Types.ADD:
       return {
         ...state,
-        page: state.page + 1
+        posts: [{ ...action.payload.post, author: action.payload.author }, ...state.posts]
       }
     default: return state
   }

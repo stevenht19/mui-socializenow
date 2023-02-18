@@ -5,6 +5,7 @@ const Container = styled(Box)(({ theme }) => ({
   maxWidth: '56rem',
   marginInline: 'auto',
   width: '100%',
+  paddingInline: '.65rem',
   [theme.breakpoints.up('md')]: {
     paddingInline: '2.2rem',
   }

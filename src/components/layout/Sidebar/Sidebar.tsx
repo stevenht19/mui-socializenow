@@ -28,13 +28,16 @@ const StyledSidebar = styled(Box)(({ theme }) => ({
   }
 }))
 
-const Content = styled(Box)(() => ({
+const Content = styled(Box)(({ theme }) => ({
   position: 'fixed',
   overflowY: 'auto',
   overflowX: 'hidden',
   height: '100%',
   paddingBottom: '2rem',
-  width: 'inherit'
+  width: 'inherit',
+  [theme.breakpoints.up('md')]: {
+    paddingInline: '.6rem'
+  }
 }))
 
 const Sidebar = () => {

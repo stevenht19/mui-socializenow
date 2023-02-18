@@ -1,5 +1,5 @@
 import { Route } from 'wouter'
-import { lazy, Suspense, useEffect } from 'react'
+import { lazy, Suspense } from 'react'
 import { AccountProvider, PostProvider } from '@/context'
 import { RootLayout } from '@/components/layout'
 import { Routes } from '@/utils'

@@ -12,7 +12,7 @@ export type PostsContextState = {
 }
 
 type PostContextType = PostsContextState & {
-  addPost: (post: Omit<Post, 'createdAt'>, author: Account) => void
+  addPost: (post: Post, author: Account) => void
   handleLike: (postId: Post['_id'], userId?: Account['_id']) => void
   incrementComments: (postId: Post['_id']) => void
   onNext: () => void
@@ -39,7 +39,7 @@ export default function Posts({ children }: {
   const [postState, dispatch] = useReducer(postsReducer, initialState)
   const { posts, isLoading, page, hasMore } = postState 
 
-  useEffect(() => { 
+  useEffect(() => {
     getPosts(page)
       .then((res) => dispatch({
         type: Types.SET,
@@ -47,7 +47,7 @@ export default function Posts({ children }: {
       }))
   }, [page])
 
-  const addPost = (post: Omit<Post, 'createdAt'>, author: Account) => {
+  const addPost = (post: Post, author: Account) => {
     dispatch({
       type: Types.ADD,
       payload: {

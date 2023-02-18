@@ -19,7 +19,7 @@ const useBoolean = (initialState = false) => {
     boolean,
     setTrue,
     setFalse,
-    onToggle
+    onToggle,
   ] as const
 }
 export default useBoolean

@@ -14,18 +14,22 @@ const CommentList = (props: { postId: Post['_id'] }) => {
     )
   }
 
-  return (
-    <Stack spacing={2} mx={2.5} py={2}>
-      {
-        comments.map((props) => (
-          <CommentItem
-            key={props._id}
-            postId={postId}
-            {...props}
-          />
-        ))
-      }
-    </Stack>
-  )
+  return <>
+    {
+      comments.length ? (
+        <Stack spacing={2} mx={2.5} py={2}>
+          {
+            comments.map((props) => (
+              <CommentItem
+                key={props._id}
+                postId={postId}
+                {...props}
+              />
+            ))
+          }
+        </Stack>
+      ) : null
+    }
+  </>
 }
 export default CommentList

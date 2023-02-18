@@ -1,4 +1,5 @@
 import { Account } from '@/models'
+import { getFetch } from '@/utils'
 
 type ErrorResponse = {
   type: 'error'
@@ -11,14 +12,9 @@ type Response = {
 }
 
 export const getAccount = async (token: string) => {
-  const response = await fetch(`${import.meta.env.VITE_MONGO_API_URL}/auth`, {
-    method: 'GET',
-    headers: {
-      'authorization': `Bearer ${token}`
-    }
+  const data = await getFetch<Response | ErrorResponse>('/auth', 'GET', {
+    'authorization': `Bearer ${token}`
   })
-
-  const data: ErrorResponse | Response = await response.json()
 
   if (data.type === 'error') {
     throw new Error(data.error)

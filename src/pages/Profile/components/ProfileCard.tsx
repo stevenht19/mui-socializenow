@@ -29,7 +29,8 @@ export const ProfileCard = (props: Account) => {
 
 const CardButton = ({ _id, username, firstname, lastname }: Account) => {
   const { account }= useAccount()
-  const [snackbarOpen, setSnackbaropen, closeSnackbar] = useBoolean()
+  const [snackbarOpen, setSnackbarOpen, closeSnackbar] = useBoolean()
+  const [editProfileOpen, setEditProfileOpen, closeEditProfile] = useBoolean()
   const isNotUserLogged = account?._id !== _id
 
   return (
@@ -37,6 +38,11 @@ const CardButton = ({ _id, username, firstname, lastname }: Account) => {
       <Snackbar 
         open={snackbarOpen}
         onClose={closeSnackbar}
+      />
+      <Snackbar 
+        open={editProfileOpen}
+        onClose={closeEditProfile}
+        message='Good things are comming soon...'
       />
       <Typography component='h2' variant='h5' fontWeight={900}>
         {username}
@@ -55,7 +61,7 @@ const CardButton = ({ _id, username, firstname, lastname }: Account) => {
           <Button
             sx={{ mt: 2.2 }}
             startIcon={<Reply />}
-            onClick={setSnackbaropen}
+            onClick={setSnackbarOpen}
             fullWidth
           >
             Share
@@ -66,6 +72,7 @@ const CardButton = ({ _id, username, firstname, lastname }: Account) => {
             fullWidth
             variant='outlined'
             startIcon={<Edit />}
+            onClick={setEditProfileOpen}
           >
             Edit Profile
           </Button>

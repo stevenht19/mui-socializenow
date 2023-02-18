@@ -25,7 +25,7 @@ export const Posts = () => {
       }
       endMessage={
         <Typography 
-          pb={3} 
+          pb={3}
           textAlign='center'
           color='text.secondary'
         >
