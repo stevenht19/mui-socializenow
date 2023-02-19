@@ -1,8 +1,8 @@
-import { Account, User } from '@/models'
+import { Account } from '@/models'
 
 export type Credentials = {
   username: Account['username']
-  password: Account['password']
+  password: string
 }
 
 export type Response = {

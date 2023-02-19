@@ -62,17 +62,17 @@ const Header = () => {
             sx={{ 
               display: 'flex', 
               alignItems: 'center', 
-              gap: 1.5
+              gap: 3
             }}>
             <img 
               src={logo} 
               alt='socialize-now logo' 
-              width={35} 
-              height={35} 
+              width={32} 
+              height={32} 
             />
             <Typography 
               fontWeight={800} 
-              variant='h5'
+              variant='h6'
               component='span'
               color={(theme) => theme.palette.primary.main}
               sx={{
@@ -82,7 +82,7 @@ const Header = () => {
                 }
               }}
             >
-              SN
+              sn
             </Typography>
           </Link>
           <Buttons />
