@@ -33,6 +33,7 @@ const Content = styled(Box)(({ theme }) => ({
   overflowY: 'auto',
   overflowX: 'hidden',
   height: '100%',
+  paddingTop: '.5rem',
   paddingBottom: '2rem',
   width: 'inherit',
   [theme.breakpoints.up('md')]: {

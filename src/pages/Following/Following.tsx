@@ -2,12 +2,15 @@ import { Grid, Skeleton } from '@mui/material'
 import { useAccounts } from '@/hooks'
 import { UserCard } from './components/UserCard'
 import { Item } from './components/Item'
+import useScrollRestoration from '@/hooks/useScrollRestoration'
 
 let n = 0
 const skeletonArray = new Array(15).fill('').map(() => n++)
 
 const Following = () => {
   const { accounts, isLoading } = useAccounts(3, 15)
+  
+  useScrollRestoration(0)
 
   return (
     <Grid container spacing={4} pb={4}>

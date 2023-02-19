@@ -7,6 +7,8 @@ import { Types } from './reducers/types'
 export type PostsContextState = {
   posts: Post[]
   page: number
+  limit: number
+  offset: number
   isLoading: boolean
   hasMore: boolean
 }
@@ -21,6 +23,8 @@ type PostContextType = PostsContextState & {
 const initialState = {
   posts: [],
   page: 1,
+  offset: 0,
+  limit: 6,
   hasMore: true,
   isLoading: true,
 }
@@ -37,10 +41,10 @@ export default function Posts({ children }: {
   children: React.ReactNode
 }) {
   const [postState, dispatch] = useReducer(postsReducer, initialState)
-  const { posts, isLoading, page, hasMore } = postState 
+  const { posts, isLoading, page, offset, limit, hasMore } = postState 
 
   useEffect(() => {
-    getPosts(page)
+    getPosts(page, offset, limit)
       .then((res) => dispatch({
         type: Types.SET,
         payload: res
@@ -91,6 +95,8 @@ export default function Posts({ children }: {
       isLoading,
       posts,
       page,
+      offset,
+      limit,
       hasMore,
       addPost,
       handleLike,

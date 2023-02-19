@@ -9,22 +9,35 @@ import { createPost } from './services/createPost'
 import { CreatePost } from './types'
 import { mutate } from 'swr'
 
-const PostModal = ({ open, onClose }: ModalProps) => {
+type Props = ModalProps & {
+  onSuccess: () => void
+}
+
+const PostModal = ({ open, onClose, onSuccess }: Props) => {
   const methods = useForm<CreatePost>({ mode: 'onBlur' })
   const { account } = useAccount()
   const { params } = useLocation()
   const { addPost } = usePosts()
-  const [isLoading, setIsLoading, stopLoading] = useBoolean()
+  const [isLoading, startLoading, stopLoading] = useBoolean()
 
   const onSubmit: SubmitHandler<CreatePost> = async (data) => {
     try {
-      setIsLoading()
+      startLoading()
+
       const post = await createPost(data, account!._id)
+  
+      if (!post?._id) {
+        throw new Error('Something went wrong')
+      }
+      
       addPost(post, account!)
+
       if (params.length) {
         mutate(`/posts/${account?._id}`)
       }
-      onClose()
+
+      onSuccess()
+
     } catch (_) {
       stopLoading()
     }

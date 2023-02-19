@@ -6,6 +6,6 @@ export type Response = {
   hasNextPage: boolean
 }
 
-export const getPosts = async (page: number): Promise<Response> => {
-  return getFetch(`/posts?page=${page}`) 
+export const getPosts = async (page: number, offset: number, limit: number): Promise<Response> => {
+  return getFetch(`/posts?page=${page}&offset=${offset}&limit=${limit}`) 
 }

@@ -38,7 +38,8 @@ export const postsReducer = (state: PostsContextState, action: PostsAction) => {
     case Types.NEXT:
       return {
         ...state,
-        page: state.page + 1
+        page: state.page + 1,
+        offset: state.offset + state.limit
       }
     case Types.LIKE:
       return {
@@ -65,7 +66,8 @@ export const postsReducer = (state: PostsContextState, action: PostsAction) => {
     case Types.ADD:
       return {
         ...state,
-        posts: [{ ...action.payload.post, author: action.payload.author }, ...state.posts]
+        posts: [{ ...action.payload.post, author: action.payload.author }, ...state.posts],
+        offset: state.offset + 1
       }
     default: return state
   }

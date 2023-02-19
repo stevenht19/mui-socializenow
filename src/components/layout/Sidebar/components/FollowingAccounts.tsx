@@ -21,7 +21,7 @@ const LoginBox = ({ children }: {
         variant='body2'
         mt={1.2}
       >
-        Log in for following creators, like and comment posts.
+        Log in for posting, like and comment posts.
       </Typography>
       {children}
     </Box>
