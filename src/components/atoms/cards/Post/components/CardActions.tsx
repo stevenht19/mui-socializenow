@@ -23,7 +23,7 @@ export const Actions = (props: Post) => {
   const onToggle = () => rest[2]()
 
   const handleShare = () => {
-    navigator.clipboard.writeText(`${window.location.href}users/${author._id}`)
+    navigator.clipboard.writeText(`${window.location.origin}/users/${author._id}`)
     showSnackbar()
   }
 
