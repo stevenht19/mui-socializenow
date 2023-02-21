@@ -31,9 +31,6 @@ export const Likes: React.FC<Post> = ({ _id, likes }) => {
       checked={isLiked}
       onChange={onChange}
     />
-    <ButtonValue 
-      id='likes'
-      value={likes.length}
-    />
+    <ButtonValue value={likes.length} />
   </>
 }

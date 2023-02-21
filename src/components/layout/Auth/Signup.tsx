@@ -16,16 +16,20 @@ type Inputs = {
 export const Signup = ({ onClose }: Props) => {
   const { logIn } = useAccount()
   const { register, handleSubmit, setError, formState: { errors } } = useForm<Inputs>()
-  const [isLoading, setIsLoading, stopLoading] = useBoolean()
   const { error, onError } = useError()
+  const [isLoading, setIsLoading, stopLoading] = useBoolean()
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     try {
       const { password, confirmPassword } = data
 
-      if ((password !== confirmPassword)) {
-        setError('confirmPassword', { type: 'custom', message: 'Password does not match' })
-        return;
+      if (password !== confirmPassword) {
+        setError('confirmPassword', { 
+          type: 'custom', 
+          message: 'Password does not match' 
+        })
+
+        return
       }
 
       setIsLoading()
