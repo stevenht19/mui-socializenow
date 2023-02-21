@@ -44,11 +44,8 @@ export default function Posts({ children }: {
   const { posts, isLoading, page, offset, limit, hasMore } = postState 
 
   useEffect(() => {
-    getPosts(page, offset, limit)
-      .then((res) => dispatch({
-        type: Types.SET,
-        payload: res
-      }))
+    getPosts(page, offset)
+      .then(dispatch)
   }, [page])
 
   const addPost = (post: Post, author: Account) => {

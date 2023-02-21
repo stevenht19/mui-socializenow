@@ -33,6 +33,11 @@ const CardButton = ({ _id, username, firstname, lastname }: Account) => {
   const [editProfileOpen, setEditProfileOpen, closeEditProfile] = useBoolean()
   const isNotUserLogged = account?._id !== _id
 
+  const onShare = () => {
+    navigator.clipboard.writeText(`${window.location.origin}/users/${_id}`)
+    setSnackbarOpen()
+  }
+
   return (
     <div>
       <Snackbar 
@@ -61,7 +66,7 @@ const CardButton = ({ _id, username, firstname, lastname }: Account) => {
           <Button
             sx={{ mt: 2.2 }}
             startIcon={<Reply />}
-            onClick={setSnackbarOpen}
+            onClick={onShare}
             fullWidth
           >
             Share
