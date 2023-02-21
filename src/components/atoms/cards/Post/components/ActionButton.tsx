@@ -1,8 +1,7 @@
-import { Flex } from '@/components/atoms/Flex'
 import { IconButton, Typography } from '@mui/material'
 
 type Props = {
-  id: string
+  id?: string
   auto?: boolean
   icon: React.ReactNode
   children?: React.ReactNode
@@ -21,7 +20,7 @@ export const ActionButton = ({
     <>
       <IconButton
         onClick={onClick}
-        aria-labelledby={id}
+        {...(id && { id, "aria-labelledby": id })}
         {...auto && { sx: { ml: 'auto' } }}
       >
         {icon}
@@ -31,12 +30,17 @@ export const ActionButton = ({
   )
 }
 
-export const ButtonValue = ({ id = '', value = 0 }) => {
+type ButtonValueProps = {
+  id?: Props['id']
+  value: number
+}
+
+export const ButtonValue = ({ id, value = 0 }: ButtonValueProps) => {
   return (
     <Typography
-      id={id}
       component='span'
       variant='body2'
+      {...(id && { id })}
     >
       {value}
     </Typography>

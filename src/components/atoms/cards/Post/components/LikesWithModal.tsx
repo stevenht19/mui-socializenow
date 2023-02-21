@@ -4,15 +4,11 @@ import { ActionButton, ButtonValue } from './ActionButton'
 
 const LikesGuard = ({ children, verifyUser }: Props) => {
   return (
-    <ActionButton 
-      id='like'
+    <ActionButton
       icon={<FavoriteBorder />}
       onClick={verifyUser}
     >
-      <ButtonValue 
-        id='like' 
-        value={children as number} 
-      />
+      <ButtonValue value={children as number} />
     </ActionButton>
   )
 }

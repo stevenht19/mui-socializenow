@@ -57,7 +57,7 @@ const CardButton = ({ _id, username, firstname, lastname }: Account) => {
           (firstname && lastname) ? (
             `${firstname} ${lastname}`
           ) : (
-            `@${username.toLowerCase()}`
+            `@${username.toLowerCase().split(' ').join('')}`
           )
         }
       </Typography>

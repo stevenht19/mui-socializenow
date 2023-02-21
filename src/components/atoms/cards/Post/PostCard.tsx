@@ -27,7 +27,10 @@ const PostCard = (props: Post) => {
             height='350'
             image={image?.secure_url}
             alt={`${username}-post-image`}
-            sx={{ objectFit: 'contain' }}
+            sx={{ 
+              objectFit: 'contain', 
+              bgcolor: (theme) => theme.palette.grey[100]
+            }}
           />
         )
       }
