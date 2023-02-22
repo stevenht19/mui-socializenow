@@ -9,7 +9,7 @@ import { Box, Typography, useMediaQuery, useTheme } from '@mui/material'
 export const ProfileCard = (props: Account) => {
   const { username, picture, color } = props
   const { breakpoints } = useTheme()
-  const isDesktop = useMediaQuery('(min-width: ' + breakpoints.values.lg + breakpoints.unit + ')')
+  const isDesktop = useMediaQuery('(min-width: ' + breakpoints.values.lg + 'px)')
   
   return (
     <Box minHeight='10rem'>

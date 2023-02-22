@@ -7,21 +7,27 @@ import { ButtonValue } from './ActionButton'
 import { verifyIfLikeExists } from '../utils'
 import likePost from '../services/likePost'
 
-export const Likes: React.FC<Post> = ({ _id, likes }) => {
+export const Likes = ({ _id, likes }: Post) => {
   const { posts, handleLike } = usePosts()
   const { account } = useAccount()
   const { params } = useLocation()
   const { isLiked } = verifyIfLikeExists(likes, account?._id)
 
   const onChange = async () => {
-    await likePost(_id)
-
-    if (params.length) {
-      mutate(`/posts${params}`)
-      if (!posts.some((post) => post._id === _id)) return;
+    if (!params.length) {
+      handleLike(_id, account?._id)
+      await likePost(_id)
+      return;
     }
 
-    handleLike(_id, account?._id)
+    await likePost(_id)
+
+    mutate(`/posts${params}`)
+
+    if (posts.some((post) => post._id === _id)) {
+      handleLike(_id, account?._id)
+    }
+
   }
 
   return <>
