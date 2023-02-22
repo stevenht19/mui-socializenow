@@ -7,7 +7,7 @@ import { Props } from '../types'
 const PostsView = ({ id }: Props) => {
   const { posts, isLoading } = usePosts(id)
 
-  return (
+  return <>
     <ListView
       py={3}
       items={posts ?? []}
@@ -23,7 +23,7 @@ const PostsView = ({ id }: Props) => {
       )}
       customMessage={`There are no posts yet.`}
     />
-  )
+  </>
 }
 
 export default PostsView

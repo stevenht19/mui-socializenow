@@ -10,7 +10,7 @@ import { CreatePost } from '../types'
 const Image = styled('img')({
   width: '100%',
   maxHeight: '15rem',
-  objectFit: 'cover'
+  objectFit: 'contain'
 })
 
 const DropzoneBox = styled('div')({
