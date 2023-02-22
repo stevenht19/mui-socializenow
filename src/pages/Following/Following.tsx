@@ -8,7 +8,7 @@ let n = 0
 const skeletonArray = new Array(15).fill('').map(() => n++)
 
 const Following = () => {
-  const { accounts, isLoading } = useAccounts(3, 15)
+  const { accounts, isLoading } = useAccounts(3, 12)
   
   useScrollRestoration(0)
 

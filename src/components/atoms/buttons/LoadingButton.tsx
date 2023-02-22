@@ -3,9 +3,9 @@ import { LoadingButton as MuiLoadingButton } from '@mui/lab'
 type Props = {
   loading: boolean
   isDisabled: boolean
-  size?: 'small' | 'medium' | 'large'
   mt?: number
   children: React.ReactNode
+  size?: 'small' | 'medium' | 'large'
 }
 
 export const LoadingButton: React.FC<Props> = ({ 
@@ -27,7 +27,9 @@ export const LoadingButton: React.FC<Props> = ({
         mt: mt || 5.2
       }}
     >
-      {children}
+      <span>
+        {children}
+      </span>
     </MuiLoadingButton>
   )
 }

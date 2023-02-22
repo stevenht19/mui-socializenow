@@ -10,7 +10,7 @@ import { CreatePost } from '../types'
 const Image = styled('img')({
   width: '100%',
   maxHeight: '15rem',
-  objectFit: 'cover'
+  objectFit: 'contain'
 })
 
 const DropzoneBox = styled('div')({
@@ -19,13 +19,13 @@ const DropzoneBox = styled('div')({
 
 const baseStyle = {
   flex: 1,
+  borderWidth: 2,
+  borderRadius: 2,
   display: 'grid',
   placeItems: 'center',
   padding: '20px',
-  borderWidth: 2,
   height: '10rem',
   marginBottom: '1rem',
-  borderRadius: 2,
   borderStyle: 'dashed',
   color: '#bdbdbd',
   cursor: 'pointer',
