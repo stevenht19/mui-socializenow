@@ -74,6 +74,8 @@ export default function Posts({ children }: {
   }
 
   const incrementComments = (postId: Post['_id']) => {
+    if (!posts.some(({ _id }) => postId === _id)) return
+
     dispatch({
       type: Types.COMMENT,
       payload: postId
