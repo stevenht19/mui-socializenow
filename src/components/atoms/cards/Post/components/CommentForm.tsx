@@ -1,4 +1,3 @@
-import { mutate } from 'swr'
 import { useRef } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 import { Post } from '@/models'
@@ -23,28 +22,28 @@ const CommentForm = ({
 }: Props) => {
   const formRef = useRef<HTMLFormElement | null>(null)
   const { account } = useAccount()
-  const { comments } = useComments(postId) 
+  const { comments, mutate } = useComments(postId)
   const { register, handleSubmit } = useForm<Inputs>()
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
     if (!account?._id) return
-    
-    mutate('/comments/' + postId, [...comments, { 
-      _id: Date.now(), 
+
+    await mutate([...comments, { 
+      _id: String(Date.now()), 
       author: account, 
       text: data.text,
       likes: null,
-      createdAt: Date.now()
+      createdAt: new Date()
     }], { revalidate: false })
 
     formRef.current?.reset()
 
-    incrementComments(postId)
+    incrementComments(postId)   
 
     await addComment(postId, { ...data, author: account._id })
 
-    mutate('/comments/' + postId)
-  
+    mutate()
+   
   }
 
   return (

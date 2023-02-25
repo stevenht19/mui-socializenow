@@ -7,7 +7,6 @@ export const getComments = (
 ) => {
   return comments.map((comment) => {
     if (comment._id === commentId) {
-      console.log(comment.likes?.includes(authorId))
       return {
         ...comment,
         likes: comment.likes?.includes(authorId) ? 
