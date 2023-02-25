@@ -14,8 +14,8 @@ export const CommentInput = ({ verifyUser, user, children }: Props) => {
           <TextField
             placeholder='Write a comment'
             autoComplete='off'
-            fullWidth
             onClick={verifyUser}
+            fullWidth
           />
         )
       }

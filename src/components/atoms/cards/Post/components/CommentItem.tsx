@@ -2,15 +2,17 @@ import dayjs from 'dayjs'
 import { mutate } from 'swr'
 import { Comment, Post } from '@/models'
 import { useAccount } from '@/hooks'
-import { CommentLike } from './CommentLike'
+import { withAuthModal } from '@/hocs'
 import { Avatar } from '@/components/atoms/Avatar'
-import { Box, Button, Typography, styled } from '@mui/material'
+import { Box, Typography, styled } from '@mui/material'
 import { FavoriteBorder, FavoriteOutlined } from '@mui/icons-material'
 import { grey } from '@mui/material/colors'
 import { Flex } from '@/components/atoms/Flex'
+import { CommentLike } from './CommentLike'
 import { likeComment } from '../services'
 import { verifyIfLikeExists } from '../utils'
-import { withAuthModal } from '@/hocs'
+import { getComments } from '../utils/validateComments'
+import { useComments } from '../hooks'
 
 type Props = Comment & {
   postId: Post['_id']
@@ -31,14 +33,17 @@ export const CommentItem: React.FC<Props> = ({
   likes,
   createdAt
 }) => {
+  const { comments } = useComments(postId)
   const { account } = useAccount()
-  const { isLiked } = verifyIfLikeExists(likes, account?._id)
+  const { isLiked } = verifyIfLikeExists(likes ?? [], account?._id)
   const { username, color, picture } = author
   const date = dayjs(createdAt).fromNow()
 
   const handleLike = async () => {
+    mutate('/comments/' + postId, getComments(comments, _id, account!._id), {
+      revalidate: false
+    })
     await likeComment(_id)
-    mutate('/comments/' + postId)
   }
 
   return (
@@ -71,35 +76,47 @@ export const CommentItem: React.FC<Props> = ({
             {text}
           </Typography>
         </Box>
-        <Flex gap={2}>
-          <CommentLikeWithModal action={handleLike}>
-            {
-              isLiked ? (
-                <FavoriteOutlined
-                  sx={{
-                    fontSize: 18,
-                    color: (theme) => theme.palette.primary.main
-                  }}
-                />
-              ) : (
-                <FavoriteBorder sx={{ fontSize: 18 }} />
-              )
-            }
-            <SpanStyled>
-              {likes.length ?? 0}
-            </SpanStyled>
-            {
-              likes?.length !== 1 ? 'Likes' : 'Like'
-            }
-          </CommentLikeWithModal>
-          <Typography
-            component='span'
-            color='text.secondary'
-            variant='body2'
-          >
-            {date}
-          </Typography>
-        </Flex>
+        {
+          likes === null ? (
+            <Typography
+              component='span'
+              color='text.secondary'
+              variant='body2'
+            >
+              ...Posting
+            </Typography>
+          ) : (
+            <Flex gap={2}>
+              <CommentLikeWithModal action={handleLike}>
+                {
+                  isLiked ? (
+                    <FavoriteOutlined
+                      sx={{
+                        fontSize: 18,
+                        color: (theme) => theme.palette.primary.main
+                      }}
+                    />
+                  ) : (
+                    <FavoriteBorder sx={{ fontSize: 18 }} />
+                  )
+                }
+                <SpanStyled>
+                  {likes.length ?? 0}
+                </SpanStyled>
+                {
+                  likes?.length !== 1 ? 'Likes' : 'Like'
+                }
+              </CommentLikeWithModal>
+              <Typography
+                component='span'
+                color='text.secondary'
+                variant='body2'
+              >
+                {date}
+              </Typography>
+            </Flex>
+          )
+        }
       </Box>
     </Box>
   )

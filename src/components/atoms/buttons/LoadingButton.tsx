@@ -3,7 +3,7 @@ import { LoadingButton as MuiLoadingButton } from '@mui/lab'
 type Props = {
   loading: boolean
   isDisabled: boolean
-  mt?: number
+  mt?: number | null
   children: React.ReactNode
   size?: 'small' | 'medium' | 'large'
 }
@@ -24,7 +24,7 @@ export const LoadingButton: React.FC<Props> = ({
       size={size || 'large'}
       fullWidth
       sx={{
-        mt: mt || 5.2
+        mt: mt === null ? 0 : 5.2
       }}
     >
       <span>
